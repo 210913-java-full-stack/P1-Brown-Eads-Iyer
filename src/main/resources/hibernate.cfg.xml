@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <!-- SQL Dialect -->
+        <property name="hibernate.dialect">org.hibernate.dialect.MariaDB103Dialect</property>
+
+        <!-- Database Connection Settings -->
+        <property name="hibernate.connection.driver_class">org.mariadb.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mariadb://training-db.cmgui9oeluly.us-east-2.rds.amazonaws.com:3306/Airport?userSSL=false</property>
+        <property name="hibernate.connection.username">admin</property>
+        <property name="hibernate.connection.password">37DxrR6PraC9mt8lNJB2</property>
+
+        <!-- Connection Pool Size (built-in) -->
+        <property name="hibernate.connection.pool.size">1</property>
+
+        <!-- show all generate SQL query -->
+        <property name="show_sql">true</property>
+        <property name="hbm2ddl.auto">update</property>
+
+        <!-- Mention here all the model classes along with their package name -->
+        <mapping class="models.City"/>
+        <mapping class="models.User"/>
+        <mapping class="models.Booking"/>
+        <mapping class="models.Flight"/>
+    </session-factory>
+</hibernate-configuration>

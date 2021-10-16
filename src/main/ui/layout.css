@@ -1,0 +1,57 @@
+.column1, .column2, .column3{
+	float:left;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* Style the header */
+.header {
+  background-color: #f1f1f1;
+  padding: 10px;
+  text-align: center;
+  font-size: 35px;
+}
+
+.column1 {
+  float: left;
+  width: 300px;
+  padding-bottom: 10%;
+  background-color: #b3d9ff;
+  padding-left: 20px;
+  text-align: left;
+  height: 500px;
+}
+
+.column2 {
+  float: left;
+  width: 544px;
+  padding: 10px;
+  background-color: #ffffff;
+  height: 500px;
+}
+
+.column3 {
+  float: left;
+  width: 280px;
+  padding: 20px;
+  padding-bottom: 10%;
+  background-color: #e6f2ff;
+  height: 500px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Style the footer */
+.footer {
+  background-color: #f1f1f1;
+  padding: 10px;
+  text-align: center;
+}
