@@ -9,9 +9,9 @@ public class Booking {
 
     public Booking(){}
 
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ticket_number")
-    @Id
     private int ticket_num;
 
     @Column

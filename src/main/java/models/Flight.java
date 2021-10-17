@@ -1,6 +1,7 @@
 package models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="flight")
@@ -17,6 +18,10 @@ public class Flight {
 
     @Column
     private String destination;
+
+    @ManyToOne()
+    @JoinColumn(nullable = false)
+    private List<City> code;
 
     public int getFlight_num() {return flight_num;}
 

@@ -21,6 +21,7 @@ public class User {
     @Column
     private String password;
 
+
     public String getfName() {
         return fName;
     }
