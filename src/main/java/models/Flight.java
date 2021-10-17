@@ -15,7 +15,7 @@ public class Flight {
     private int flight_number;
 
     @OneToMany
-    @JoinColumn(name = "flight_number")
+    @JoinColumn(name = "flight_number", nullable = false)
     private List<Booking> flight_num;
 
     public int getFlight_num() {return flight_number;}
