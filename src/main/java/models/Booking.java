@@ -14,11 +14,10 @@ public class Booking {
     @Column(name="ticket_number")
     private int ticket_num;
 
-    @Column
-    private int ssn;
+//    @Column(name="flight_number")
+//    private int flight_num;
 
-    @Column(name="flight_number")
-    private int flight_num;
+
 
     public int getTicket_num() {
         return ticket_num;
@@ -28,19 +27,11 @@ public class Booking {
         this.ticket_num = ticket_num;
     }
 
-    public int getSsn() {
-        return ssn;
-    }
-
-    public void setSsn(int ssn) {
-        this.ssn = ssn;
-    }
-
-    public int getFlight_num() {
-        return flight_num;
-    }
-
-    public void setFlight_num(int flight_num) {
-        this.flight_num = flight_num;
-    }
+//    public int getFlight_num() {
+//        return flight_num;
+//    }
+//
+//    public void setFlight_num(int flight_num) {
+//        this.flight_num = flight_num;
+//    }
 }

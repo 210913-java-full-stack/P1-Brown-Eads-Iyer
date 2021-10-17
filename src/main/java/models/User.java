@@ -1,6 +1,7 @@
 package models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="users")
@@ -10,7 +11,11 @@ public class User {
 
     @Id
     @Column
-    int ssn;
+    private int ssn;
+
+    @OneToMany()
+    @JoinColumn(name = "user_ssn", nullable = false, referencedColumnName = "ssn")
+    private List<Booking> ssnList;
 
     @Column(name="first_name")
     private String fName;
@@ -20,6 +25,8 @@ public class User {
 
     @Column
     private String password;
+
+
 
 
     public String getfName() {
