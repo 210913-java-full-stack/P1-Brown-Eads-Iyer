@@ -1,6 +1,8 @@
 package models;
 
 import javax.persistence.*;
+import java.awt.print.Book;
+import java.util.List;
 
 @Entity
 @Table(name="flight")
@@ -9,16 +11,14 @@ public class Flight {
     public Flight(){}
 
     @Id
-    @Column(name = "flight_number")
-    private int flight_num;
+    @Column()
+    private int flight_number;
 
-    @Column
-    private String departure;
+    @OneToMany
+    @JoinColumn(name = "flight_number", nullable = false)
+    private List<Booking> flight_num;
 
-    @Column
-    private String destination;
+    public int getFlight_num() {return flight_number;}
 
-    public int getFlight_num() {return flight_num;}
-
-    public void setFlight_num(int flight_num) {this.flight_num = flight_num;}
+    public void setFlight_num(int flight_number) {this.flight_number = flight_number;}
 }

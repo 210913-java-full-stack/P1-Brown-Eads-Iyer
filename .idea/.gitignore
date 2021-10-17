@@ -81,3 +81,4 @@ fabric.properties
 
 #sensitive connection info
 *.properties
+src/main/resources
