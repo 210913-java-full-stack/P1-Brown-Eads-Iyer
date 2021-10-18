@@ -2,6 +2,7 @@ package repos;
 
 import models.City;
 
+import java.sql.PreparedStatement;
 import java.util.List;
 
 public class cityRepo implements Repo<City> {
@@ -19,6 +20,9 @@ public class cityRepo implements Repo<City> {
      */
     @Override
     public City getByID(int id) {
+        String sql = "SELECT * FROM cities WHERE id = ?";
+        PreparedStatement ps = conn.pr
+
         return null;
     }
 
