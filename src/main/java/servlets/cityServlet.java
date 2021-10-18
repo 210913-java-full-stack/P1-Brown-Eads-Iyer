@@ -1,5 +1,9 @@
 package servlets;
 
+
+
+import models.City;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +15,7 @@ public class cityServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-
+//TODO:cityService        List<City> cityList =
     }
 
     @Override
