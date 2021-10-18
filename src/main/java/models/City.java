@@ -1,6 +1,7 @@
 package models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "cities")
@@ -8,14 +9,31 @@ public class City {
 
     public City(){}
 
-    @Id @Column
+    @Id
+    @Column(length=3)
     private String code;
+
+    @OneToMany()
+    @JoinColumn(referencedColumnName = "code")
+    private List<Flight> departure;
+
+    @OneToMany()
+    @JoinColumn(referencedColumnName = "code")
+    private List<Flight> destination;
 
     @Column
     private String city;
 
     @Column
     private String state;
+
+    public List<Flight> getDeparture() {return departure;}
+
+    public void setDeparture(List<Flight> departure) {this.departure = departure;}
+
+    public List<Flight> getDestination() {return destination;}
+
+    public void setDestination(List<Flight> destination) {this.destination = destination;}
 
     public String getCode() {return code;}
 

@@ -43,7 +43,10 @@
 # .idea/modules
 *.iml
 *.jpg
-# *.ipr
+ *.ipr
+
+#error msgs
+*.log
 
 # CMake
 cmake-build-*/
@@ -81,3 +84,4 @@ fabric.properties
 
 #sensitive connection info
 *.properties
+src/main/resources
