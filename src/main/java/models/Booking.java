@@ -14,10 +14,20 @@ public class Booking {
     @Column(name="ticket_number")
     private int ticket_num;
 
+    @Column()
+    private boolean check_in;
+
 //    @Column(name="flight_number")
 //    private int flight_num;
 
 
+    public boolean isCheck_in() {
+        return check_in;
+    }
+
+    public void setCheck_in(boolean check_in) {
+        this.check_in = check_in;
+    }
 
     public int getTicket_num() {
         return ticket_num;

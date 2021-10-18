@@ -1,13 +1,8 @@
-import org.hibernate.Hibernate;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import utils.hibernateManager;
+import utils.FileLogger;
 
 public class Main {
-    //TODO look into why everything is default autoincrement with the @id
-    //TODO the relationships
+
     public static void main(String[] args){
-        SessionFactory sFactory = hibernateManager.getSessionFactory();
-        sFactory.close();
+        FileLogger.getFileLogger().console(true).threshold(0).writeLog("Yea we be loggin messages",0);
     }
 }

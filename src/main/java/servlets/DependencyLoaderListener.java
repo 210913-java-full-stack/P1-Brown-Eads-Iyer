@@ -19,11 +19,12 @@ public class DependencyLoaderListener implements ServletContextListener {
         config.addAnnotatedClass(Booking.class);
         config.addAnnotatedClass(Flight.class);
         SessionFactory sessionFactory = config.buildSessionFactory();
-        session = sessionFactory.openSession();
+        sessionFactory.close();
+//        session = sessionFactory.openSession();
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
-    session.close();
+        if(session.isOpen()){session.close();}
     }
 }
