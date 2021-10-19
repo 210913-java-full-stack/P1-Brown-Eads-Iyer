@@ -17,6 +17,7 @@ public class ConnectionManager {
      * Static method that returns a connection (Singleton)
      */
     public static Connection getConnection(){
+        fl = FileLogger.getFileLogger();
         if (c == null){
             try {
                 Properties props = new Properties();

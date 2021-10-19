@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(test) City List</title>
+</head>
+
+<body>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>code</th>
+                <th>city</th>
+                <th>state</th>
+            </tr>
+            </thead>
+            <tbody id="cityTable"></tbody>
+        </table>
+    </div>
+
+    <script>
+        (async function getCities(){
+            let response = await fetch("http://localhost:8080/AirportPrototype/city");
+            let json = await response.json();
+
+            let table = document.getElementById("cityTable");
+
+            for(let element of json){
+                let tr = table.insertRow(-1);
+                for(let key in element) {
+                    let cell = tr.insertCell(-1);
+                    cell.innerHTML = element[key];
+                }
+            }
+        })();
+    </script>
+</body>
+
+</html>

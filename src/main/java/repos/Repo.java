@@ -1,5 +1,6 @@
 package repos;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface Repo<E> {
@@ -7,22 +8,13 @@ public interface Repo<E> {
     /**
      * @param e
      */
-    public void save(E e);
+    public void save(E e) throws SQLException;
 
-    /**
-     * @param id int to specify desired object
-     * @return
-     */
-    public E getByID(int id);
 
     /**
      * @return a list of objects
      */
-    public List<E> getAll();
+    public List<E> getAll() throws SQLException;
 
-    /**
-     * Removes object from DB
-     * @param id
-     */
-    public void deleteByID(int id);
+    public void finalize() throws SQLException;
 }

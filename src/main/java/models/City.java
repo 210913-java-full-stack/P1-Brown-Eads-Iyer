@@ -9,9 +9,21 @@ public class City {
 
     public City(){}
 
+    public City(String code, String city, String state) {
+        this.code = code;
+        this.city = city;
+        this.state = state;
+    }
+
     @Id
     @Column(length=3)
     private String code;
+
+    @Column
+    private String city;
+
+    @Column
+    private String state;
 
     @OneToMany()
     @JoinColumn(referencedColumnName = "code")
@@ -20,12 +32,6 @@ public class City {
     @OneToMany()
     @JoinColumn(referencedColumnName = "code")
     private List<Flight> destination;
-
-    @Column
-    private String city;
-
-    @Column
-    private String state;
 
     public List<Flight> getDeparture() {return departure;}
 
