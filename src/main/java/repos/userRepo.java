@@ -2,9 +2,14 @@ package repos;
 
 import models.User;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 public class userRepo implements Repo<User> {
+
+    Connection conn;
+
     /**
      * @param user
      */
@@ -17,7 +22,6 @@ public class userRepo implements Repo<User> {
      * @param id int to specify desired object
      * @return
      */
-    @Override
     public User getByID(int id) {
         return null;
     }
@@ -35,8 +39,12 @@ public class userRepo implements Repo<User> {
      *
      * @param id
      */
-    @Override
     public void deleteByID(int id) {
 
+    }
+
+    @Override
+    public void finalize() throws SQLException {
+        conn.close();
     }
 }

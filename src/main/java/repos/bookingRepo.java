@@ -1,9 +1,13 @@
 package repos;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 import models.Booking;
 
 public class bookingRepo implements Repo<Booking>{
+    Connection conn;
+
     /**
      * @param b
      */
@@ -16,7 +20,6 @@ public class bookingRepo implements Repo<Booking>{
      * @param id int to specify desired object
      * @return
      */
-    @Override
     public Booking getByID(int id) {
         return null;
     }
@@ -34,8 +37,12 @@ public class bookingRepo implements Repo<Booking>{
      *
      * @param id
      */
-    @Override
     public void deleteByID(int id) {
 
+    }
+
+    @Override
+    public void finalize() throws SQLException {
+        conn.close();
     }
 }

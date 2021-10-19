@@ -5,6 +5,7 @@ import models.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import services.cityService;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -19,8 +20,8 @@ public class DependencyLoaderListener implements ServletContextListener {
         config.addAnnotatedClass(Booking.class);
         config.addAnnotatedClass(Flight.class);
         SessionFactory sessionFactory = config.buildSessionFactory();
-        sessionFactory.close();
-//        session = sessionFactory.openSession();
+        cityService.setSessionFactory(sessionFactory);
+        cityService.setSession(cityService.getSessionFactory().openSession());
     }
 
     @Override
