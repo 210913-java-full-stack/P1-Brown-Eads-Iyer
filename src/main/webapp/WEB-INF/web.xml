@@ -26,7 +26,9 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     <!--     CORS FILTER -->
-
+    <listener>
+        <listener-class>servlets.DependencyLoaderListener</listener-class>
+    </listener>
     <servlet>
         <servlet-name>pingServlet</servlet-name>
         <servlet-class>servlets.pingServlet</servlet-class>

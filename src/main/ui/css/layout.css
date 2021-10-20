@@ -1,4 +1,4 @@
-.column1, .column2, .column3{
+.column1, .column2, .column3, .column0{
 	float:left;
 }
 
@@ -6,8 +6,22 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+table {
+  font-family: arial, sans-serif;
+  font-size: small;
+  border-collapse: collapse;
+}
 
-/* Style the header */
+td, th {
+  border: 1px solid #002c6e;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #a1c6ff;
+}
+
 .header {
   background-color: #f1f1f1;
   padding: 10px;
@@ -15,22 +29,31 @@ body {
   font-size: 35px;
 }
 
+.column0 {
+  float: left;
+  width: 100px;
+  background-color: #ffffff;
+  height: 1020px;
+}
+
 .column1 {
   float: left;
-  width: 300px;
+  width: 200px;
+  padding: 10px;
   padding-bottom: 10%;
   background-color: #b3d9ff;
   padding-left: 20px;
   text-align: left;
-  height: 500px;
+  height: 1020px;
 }
 
 .column2 {
   float: left;
-  width: 544px;
-  padding: 10px;
+  width: 444px;
+  padding: 20px;
+  padding-left: 30px;
   background-color: #ffffff;
-  height: 500px;
+  height: 1020px;
 }
 
 .column3 {
@@ -39,7 +62,7 @@ body {
   padding: 20px;
   padding-bottom: 10%;
   background-color: #e6f2ff;
-  height: 500px;
+  height: 1020px;
 }
 
 /* Clear floats after the columns */
