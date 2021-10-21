@@ -1,20 +1,14 @@
 package services;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
-import org.hibernate.cfg.Configuration;
-import repos.cityRepo;
 import models.City;
-import utils.ConnectionManager;
 
+import org.hibernate.Session;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
 public class cityService {
-    private static SessionFactory sFactory;
     private static Session session;
 
     public static City getCityByCode(String code){
@@ -22,7 +16,16 @@ public class cityService {
     }
 
     public static void saveNewCity(City city){
-        session.save(city);
+        //TODO: checkout that double submit bug
+        try{
+            session.beginTransaction();
+            session.saveOrUpdate(city);
+            session.getTransaction().commit();
+        }
+        catch(Exception e){
+            session.getTransaction().rollback();
+            System.out.println("Bad transaction rolled back");
+        }
     }
 
     public static void deleteCity(City city){
@@ -37,12 +40,6 @@ public class cityService {
         return session.createQuery(query).getResultList();
     }
 
-    public static void setSessionFactory(SessionFactory sf){
-        sFactory = sf;
-    }
-    public static SessionFactory getSessionFactory(){
-        return sFactory;
-    }
     public static void setSession(Session session){
         cityService.session = session;
     }

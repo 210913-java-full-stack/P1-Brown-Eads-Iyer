@@ -43,6 +43,4 @@
         <servlet-name>cityServlet</servlet-name>
         <url-pattern>/city</url-pattern>
     </servlet-mapping>
-
-
 </web-app>

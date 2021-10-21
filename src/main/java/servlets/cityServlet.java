@@ -1,6 +1,7 @@
 package servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import models.City;
 import services.cityService;
 
@@ -11,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -37,5 +37,6 @@ public class cityServlet extends HttpServlet {
         ObjectMapper map = new ObjectMapper();
         City city = map.readValue(jsonTxt, City.class);
         cityService.saveNewCity(city);
+        resp.setStatus(200);
     }
 }
