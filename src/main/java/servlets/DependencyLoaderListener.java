@@ -9,18 +9,13 @@ import services.cityService;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import utils.hibernateManager;
 
 public class DependencyLoaderListener implements ServletContextListener {
     Session session;
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        Configuration config = new Configuration().configure();
-        config.addAnnotatedClass(City.class);
-        config.addAnnotatedClass(User.class);
-        config.addAnnotatedClass(Booking.class);
-        config.addAnnotatedClass(Flight.class);
-        SessionFactory sessionFactory = config.buildSessionFactory();
-        cityService.setSessionFactory(sessionFactory);
+        cityService.setSessionFactory(hibernateManager.getSessionFactory());
         cityService.setSession(cityService.getSessionFactory().openSession());
     }
 
