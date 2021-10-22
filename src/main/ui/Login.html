@@ -77,7 +77,33 @@
     </div>
     <div class="column0"></div>
 </div>
-<script src="" async defer></script>
+<script>
+    var form = document.getElementById("login-form");
+    form.getElementByClass("button").addEventListener("click", function () {
+    marshalling(login-first.value, login-last.value, login-password.value);
+    });
+
+    async function marshalling(lFirst, lLast, lPass){
+        let user = {
+            fName : lFirst,
+            lName : lLast,
+            password : lPass,
+        }
+
+        let response = await fetch("http://localhost:8080/Proj1/user");
+            method "POST",
+            headers: {"Content-Type":application/json"},
+            body: JSON.stringify(user)
+        });
+
+        if(response.status = 401){
+            document.getElementById("loginForm").reset();
+            alert("Login Failed");
+        }
+        else{
+            window.location.href = "Member.html";
+        }
+</script>
 </body>
 
 </html>
