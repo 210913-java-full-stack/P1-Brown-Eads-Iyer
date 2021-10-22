@@ -44,6 +44,4 @@ public class cityService {
         cityService.session = session;
     }
 
-    public static void closeSession(){session.close();}
-
 }

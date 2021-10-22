@@ -7,15 +7,25 @@ import java.util.List;
 @Table(name="booking")
 public class Booking {
 
-    public Booking(){}
+    public Booking() {
+
+    }
+
+    public Booking(int ticket_num, boolean check_in){
+        this.ticket_num = ticket_num;
+        this.check_in = check_in;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ticket_number")
     private int ticket_num;
 
-    @Column(nullable=false)
+    @Column(nullable = false)
     private boolean check_in;
+
+//    @Column(name="flight_number")
+//    private int flight_num;
 
 
     public boolean isCheck_in() {
