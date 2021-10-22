@@ -25,12 +25,12 @@ public class City {
     @Column
     private String state;
 
-    @OneToMany()
-    @JoinColumn(referencedColumnName = "code")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(referencedColumnName = "code", nullable = false)
     private List<Flight> departure;
 
-    @OneToMany()
-    @JoinColumn(referencedColumnName = "code")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(referencedColumnName = "code", nullable = false)
     private List<Flight> destination;
 
     public List<Flight> getDeparture() {return departure;}

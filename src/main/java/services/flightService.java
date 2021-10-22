@@ -18,7 +18,14 @@ public class flightService {
     }
 
     public static void saveNewFlight(Flight flight){
-        session.save(flight);
+        try {
+            session.beginTransaction();
+            session.save(flight);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            System.out.println(e.toString());
+        }
     }
 
     public static void deleteFlight(Flight flight){
