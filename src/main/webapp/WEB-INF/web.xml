@@ -44,5 +44,12 @@
         <url-pattern>/city</url-pattern>
     </servlet-mapping>
 
-
+    <servlet>
+        <servlet-name>userServlet</servlet-name>
+        <servlet-class>servlets.userServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>userServlet</servlet-name>
+        <url-pattern>/user</url-pattern>
+    </servlet-mapping>
 </web-app>
