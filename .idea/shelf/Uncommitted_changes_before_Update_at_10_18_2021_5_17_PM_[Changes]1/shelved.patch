@@ -1,0 +1,39 @@
+Index: src/main/webapp/WEB-INF/web.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<!--web.xml is your depoyment descriptor\r\n        this is how tomcat gathers information about your project, such as welcome files,\r\n            available servlets, how to handle errors and exceptions, and other various\r\n            configurations you may want tomcat to know about.\r\n    It belongs in src/main/webapp/WEB-INF/ directory\r\n-->\r\n<web-app\r\n        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n        xmlns=\"http://java.sun.com/xml/ns/javaee\"\r\n        xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd\"\r\n        version=\"2.5\">\r\n\r\n    <!-- CORS FILTER -->\r\n    <filter>\r\n        <filter-name>CorsFilter</filter-name>\r\n        <filter-class>servlets.CORSFilter</filter-class>\r\n    </filter>\r\n\r\n    <filter-mapping>\r\n        <filter-name>CorsFilter</filter-name>\r\n        <url-pattern>/*</url-pattern>\r\n    </filter-mapping>\r\n    <!--     CORS FILTER -->\r\n\r\n    <servlet>\r\n        <servlet-name>pingServlet</servlet-name>\r\n        <servlet-class>servlets.pingServlet</servlet-class>\r\n    </servlet>\r\n    <servlet-mapping>\r\n        <servlet-name>pingServlet</servlet-name>\r\n        <url-pattern>/ping</url-pattern>\r\n    </servlet-mapping>\r\n\r\n\r\n</web-app>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/webapp/WEB-INF/web.xml b/src/main/webapp/WEB-INF/web.xml
+--- a/src/main/webapp/WEB-INF/web.xml	
++++ b/src/main/webapp/WEB-INF/web.xml	
+@@ -22,7 +22,9 @@
+         <url-pattern>/*</url-pattern>
+     </filter-mapping>
+     <!--     CORS FILTER -->
+-
++    <listener>
++        <listener-class>servlets.DependencyLoaderListener</listener-class>
++    </listener>
+     <servlet>
+         <servlet-name>pingServlet</servlet-name>
+         <servlet-class>servlets.pingServlet</servlet-class>
+Index: .idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"CompilerConfiguration\">\r\n    <annotationProcessing>\r\n      <profile name=\"Maven default annotation processors profile\" enabled=\"true\">\r\n        <sourceOutputDir name=\"target/generated-sources/annotations\" />\r\n        <sourceTestOutputDir name=\"target/generated-test-sources/test-annotations\" />\r\n        <outputRelativeToContentRoot value=\"true\" />\r\n        <module name=\"AirportPrototype\" />\r\n      </profile>\r\n    </annotationProcessing>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/compiler.xml b/.idea/compiler.xml
+--- a/.idea/compiler.xml	
++++ b/.idea/compiler.xml	
+@@ -7,6 +7,7 @@
+         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+         <outputRelativeToContentRoot value="true" />
+         <module name="AirportPrototype" />
++        <module name="P1-Brown-Eads-Iyer" />
+       </profile>
+     </annotationProcessing>
+   </component>
