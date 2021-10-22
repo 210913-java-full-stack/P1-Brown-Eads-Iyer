@@ -18,5 +18,7 @@ public class DependencyLoaderListener implements ServletContextListener {
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
         hibernateManager.closeSession();
+        cityService.closeSession();
+        userService.closeSession();
     }
 }
