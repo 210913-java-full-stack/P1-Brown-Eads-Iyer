@@ -32,6 +32,10 @@ public class userService {
         session.delete(user);
     }
 
+    /**
+     *
+     * @return a ResultList that contains a list of all Users
+     */
     public static List<User> getAllUsers(){
         CriteriaBuilder cBuilder = session.getCriteriaBuilder();
         CriteriaQuery<User> query = cBuilder.createQuery(User.class);
@@ -43,5 +47,7 @@ public class userService {
     public static void setSession(Session session){
         userService.session = session;
     }
+
+    public static void closeSession(){session.close();}
 
 }

@@ -14,11 +14,8 @@ public class Booking {
     @Column(name="ticket_number")
     private int ticket_num;
 
-    @Column()
+    @Column(nullable=false)
     private boolean check_in;
-
-//    @Column(name="flight_number")
-//    private int flight_num;
 
 
     public boolean isCheck_in() {
