@@ -34,6 +34,7 @@ public class bookingServlet extends HttpServlet {
         System.out.println("JSON Text: " + jsonTxt);
         ObjectMapper map = new ObjectMapper();
         Booking booking = map.readValue(jsonTxt, Booking.class);
-        bookingService.saveNewCity(booking);
+        bookingService.saveNewBooking(booking);
+        resp.setStatus(202);
     }
 }

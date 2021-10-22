@@ -7,6 +7,10 @@ import java.util.List;
 @Table(name="booking")
 public class Booking {
 
+    public Booking() {
+
+    }
+
     public Booking(int ticket_num, boolean check_in){
         this.ticket_num = ticket_num;
         this.check_in = check_in;
@@ -17,7 +21,7 @@ public class Booking {
     @Column(name="ticket_number")
     private int ticket_num;
 
-    @Column()
+    @Column(nullable = false)
     private boolean check_in;
 
 //    @Column(name="flight_number")

@@ -37,5 +37,6 @@ public class cityServlet extends HttpServlet {
         ObjectMapper map = new ObjectMapper();
         City city = map.readValue(jsonTxt, City.class);
         cityService.saveNewCity(city);
+        resp.setStatus(202);
     }
 }

@@ -35,5 +35,6 @@ public class flightServlet extends HttpServlet {
         ObjectMapper map = new ObjectMapper();
         Flight flight = map.readValue(jsonTxt, Flight.class);
         flightService.saveNewFlight(flight);
+        resp.setStatus(202);
     }
 }

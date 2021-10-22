@@ -17,11 +17,11 @@ public class bookingService {
         return session.get(Booking.class, ticketNum);
     }
 
-    public static void saveNewCity(Booking booking){
+    public static void saveNewBooking(Booking booking){
         session.save(booking);
     }
 
-    public static void deleteCity(Booking booking){
+    public static void deleteBooking(Booking booking){
         session.delete(booking);
     }
 
