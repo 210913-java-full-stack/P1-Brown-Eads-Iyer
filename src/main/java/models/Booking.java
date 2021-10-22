@@ -7,19 +7,22 @@ import java.util.List;
 @Table(name="booking")
 public class Booking {
 
-    public Booking(){}
+    public Booking() {
+
+    }
+
+    public Booking(int ticket_num, boolean check_in){
+        this.ticket_num = ticket_num;
+        this.check_in = check_in;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ticket_number")
     private int ticket_num;
 
-    @Column()
+    @Column(nullable = false)
     private boolean check_in;
-
-//    @Column(name="flight_number")
-//    private int flight_num;
-
 
     public boolean isCheck_in() {
         return check_in;
@@ -37,11 +40,4 @@ public class Booking {
         this.ticket_num = ticket_num;
     }
 
-//    public int getFlight_num() {
-//        return flight_num;
-//    }
-//
-//    public void setFlight_num(int flight_num) {
-//        this.flight_num = flight_num;
-//    }
 }

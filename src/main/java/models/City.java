@@ -9,23 +9,29 @@ public class City {
 
     public City(){}
 
+    public City(String code, String city, String state) {
+        this.code = code;
+        this.city = city;
+        this.state = state;
+    }
+
     @Id
     @Column(length=3)
     private String code;
-
-    @OneToMany()
-    @JoinColumn(referencedColumnName = "code")
-    private List<Flight> departure;
-
-    @OneToMany()
-    @JoinColumn(referencedColumnName = "code")
-    private List<Flight> destination;
 
     @Column
     private String city;
 
     @Column
     private String state;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(referencedColumnName = "code", nullable = false)
+    private List<Flight> departure;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(referencedColumnName = "code", nullable = false)
+    private List<Flight> destination;
 
     public List<Flight> getDeparture() {return departure;}
 
