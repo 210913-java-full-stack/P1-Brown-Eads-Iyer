@@ -24,10 +24,6 @@ public class Booking {
     @Column(nullable = false)
     private boolean check_in;
 
-//    @Column(name="flight_number")
-//    private int flight_num;
-
-
     public boolean isCheck_in() {
         return check_in;
     }
@@ -44,11 +40,4 @@ public class Booking {
         this.ticket_num = ticket_num;
     }
 
-//    public int getFlight_num() {
-//        return flight_num;
-//    }
-//
-//    public void setFlight_num(int flight_num) {
-//        this.flight_num = flight_num;
-//    }
 }
