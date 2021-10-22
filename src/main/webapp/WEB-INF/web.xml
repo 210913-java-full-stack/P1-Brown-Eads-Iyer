@@ -44,5 +44,23 @@
         <url-pattern>/city</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>flightServlet</servlet-name>
+        <servlet-class>servlets.flightServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>flightServlet</servlet-name>
+        <url-pattern>/flight</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>bookingServlet</servlet-name>
+        <servlet-class>servlets.bookingServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>bookingServlet</servlet-name>
+        <url-pattern>/booking</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>

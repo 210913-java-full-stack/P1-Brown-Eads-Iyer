@@ -1,35 +1,34 @@
 package services;
 
+import models.Flight;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-
-import models.City;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-public class cityService {
+public class flightService {
     private static SessionFactory sFactory;
     private static Session session;
 
-    public static City getCityByCode(String code){
-        return session.get(City.class, code);
+    public static Flight getFlightByFlightNum(int flightNum){
+        return session.get(Flight.class, flightNum);
     }
 
-    public static void saveNewCity(City city){
-        session.save(city);
+    public static void saveNewFlight(Flight flight){
+        session.save(flight);
     }
 
-    public static void deleteCity(City city){
-        session.delete(city);
+    public static void deleteFlight(Flight flight){
+        session.delete(flight);
     }
 
-    public static List<City> getAll(){
+    public static List<Flight> getAll(){
         CriteriaBuilder cBuilder = session.getCriteriaBuilder();
-        CriteriaQuery<City> query = cBuilder.createQuery(City.class);
-        Root<City> root = query.from(City.class);
+        CriteriaQuery<Flight> query = cBuilder.createQuery(Flight.class);
+        Root<Flight> root = query.from(Flight.class);
         query.select(root);
         return session.createQuery(query).getResultList();
     }
@@ -41,7 +40,7 @@ public class cityService {
         return sFactory;
     }
     public static void setSession(Session session){
-        cityService.session = session;
+        flightService.session = session;
     }
 
 }
