@@ -7,9 +7,7 @@ import java.util.List;
 @Table(name="booking")
 public class Booking {
 
-    public Booking() {
-
-    }
+    public Booking() {}
 
     public Booking(int ticket_num, boolean check_in){
         this.ticket_num = ticket_num;

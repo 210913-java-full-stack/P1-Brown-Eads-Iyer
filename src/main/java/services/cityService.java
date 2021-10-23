@@ -3,6 +3,8 @@ package services;
 import models.City;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -11,18 +13,25 @@ import java.util.List;
 public class cityService {
     private static Session session;
 
-    public static City getCityByCode(String code){
-        return session.get(City.class, code);
-    }
+    public static City getCityByCode(String code){return session.get(City.class, code);}
 
-    public static void saveNewCity(City city){
+    public static void saveNewCity(City patchInfo){
         //TODO: checkout that double submit bug
         try{
-            session.beginTransaction();
-            session.saveOrUpdate(city);
-            session.getTransaction().commit();
+            City city = session.get(City.class, patchInfo.getCode());
+            if(city == null) {
+                Transaction tx = session.beginTransaction();
+                session.save(patchInfo);
+                tx.commit();
+            } else {
+                city.setCity(patchInfo.getCity());
+                city.setCode(patchInfo.getCode());
+                city.setState(patchInfo.getState());
+                session.flush();
+            }
         }
         catch(Exception e){
+            e.printStackTrace();
             session.getTransaction().rollback();
             System.out.println("cities: Bad transaction rolled back");
         }
@@ -43,5 +52,7 @@ public class cityService {
     public static void setSession(Session session){
         cityService.session = session;
     }
+
+    public static void closeSession(){session.close();}
 
 }

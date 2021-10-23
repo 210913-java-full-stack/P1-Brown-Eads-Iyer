@@ -33,6 +33,7 @@ public class City {
     @JoinColumn(referencedColumnName = "code", nullable = false)
     private List<Flight> destination;
 
+
     public List<Flight> getDeparture() {return departure;}
 
     public void setDeparture(List<Flight> departure) {this.departure = departure;}
