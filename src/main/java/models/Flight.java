@@ -13,14 +13,14 @@ public class Flight {
     @Column()
     private int flight_number;
 
-    @OneToMany
-    @JoinColumn(name = "flight_number", nullable = false)
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinColumn(name="flight_number", nullable=false)
     private List<Booking> flight_num;
 
-    @Column
+    @Column(nullable=false)
     private String departureCode;
 
-    @Column
+    @Column(nullable=false)
     private String destinationCode;
 
     public String getDepartureCode() {
