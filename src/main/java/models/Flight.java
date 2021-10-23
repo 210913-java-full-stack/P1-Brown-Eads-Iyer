@@ -1,7 +1,6 @@
 package models;
 
 import javax.persistence.*;
-import java.awt.print.Book;
 import java.util.List;
 
 @Entity

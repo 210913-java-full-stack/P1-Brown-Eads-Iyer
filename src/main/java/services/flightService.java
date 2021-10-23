@@ -1,8 +1,9 @@
 package services;
 
+import models.City;
 import models.Flight;
+
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -27,6 +28,22 @@ public class flightService {
         //call session.flush()
         //Note: that anything we pull out of the database into a java object is now in persistent state.
         try {
+            //Departure
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<City> query = cb.createQuery(City.class);
+            Root<City> root = query.from(City.class);
+            query.where(cb.equal(root.get("code"), flight.getDepartureCode()));
+            List<City> list = session.createQuery(query).getResultList();
+            City c = list.get(0);
+            c.getDeparture().add(flight);
+
+            //Destination
+            query.where(cb.equal(root.get("code"), flight.getDestinationCode()));
+            list = session.createQuery(query).getResultList();
+            c = list.get(0);
+            c.getDestination().add(flight);
+            session.flush();
+
             session.beginTransaction();
             session.save(flight);
             session.getTransaction().commit();

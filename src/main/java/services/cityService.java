@@ -13,9 +13,7 @@ import java.util.List;
 public class cityService {
     private static Session session;
 
-    public static City getCityByCode(String code){
-        return session.get(City.class, code);
-    }
+    public static City getCityByCode(String code){return session.get(City.class, code);}
 
     public static void saveNewCity(City patchInfo){
         //TODO: checkout that double submit bug
@@ -31,20 +29,6 @@ public class cityService {
                 city.setState(patchInfo.getState());
                 session.flush();
             }
-
-
-
-//            if(session.contains(patchInfo)){
-//                City c = session.get(City.class, patchInfo.getCode());
-//                c.setCity(patchInfo.getCity());
-//                c.setCode(patchInfo.getCode());
-//                c.setState(patchInfo.getState());
-//                session.flush();
-//            } else {
-//                session.beginTransaction();
-//                session.save(patchInfo);
-//                session.getTransaction().commit();
-//            }
         }
         catch(Exception e){
             e.printStackTrace();
