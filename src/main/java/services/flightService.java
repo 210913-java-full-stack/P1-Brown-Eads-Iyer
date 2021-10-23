@@ -10,7 +10,6 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 public class flightService {
-    private static SessionFactory sFactory;
     private static Session session;
 
     public static Flight getFlightByFlightNum(int flightNum){
@@ -18,6 +17,15 @@ public class flightService {
     }
 
     public static void saveNewFlight(Flight flight){
+        //add to this logic: connection to the cities:
+        //criteria query for city that matches departure city.
+        //build the whole thing...
+        //root is the City class
+        //.....where(builder.equal(root.get("code", flight.getDestinationCode())))
+        //criteria query for the city that matches destination.
+        //update those city objects (add to lists) this flight object
+        //call session.flush()
+        //Note: that anything we pull out of the database into a java object is now in persistent state.
         try {
             session.beginTransaction();
             session.save(flight);
@@ -40,12 +48,6 @@ public class flightService {
         return session.createQuery(query).getResultList();
     }
 
-    public static void setSessionFactory(SessionFactory sf){
-        sFactory = sf;
-    }
-    public static SessionFactory getSessionFactory(){
-        return sFactory;
-    }
     public static void setSession(Session session){
         flightService.session = session;
     }
