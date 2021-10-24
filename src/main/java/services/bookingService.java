@@ -20,6 +20,9 @@ public class bookingService {
 
     public static void saveNewBooking(Booking bookPatch){
         try{
+            Booking book = session.get(Booking.class, bookPatch.getTicket_num());
+
+            if (book == null){
             CriteriaBuilder cb = session.getCriteriaBuilder();
 
             //tie to flight
@@ -42,6 +45,11 @@ public class bookingService {
             session.beginTransaction();
             session.save(bookPatch);
             session.getTransaction().commit();
+            }else {
+                book.setSsn(bookPatch.getSsn());
+                book.setCheck_in(bookPatch.isCheck_in());
+                book.setFlight_id(bookPatch.getFlight_id());
+            }
         }catch(Exception e){
             //TODO: logger
             session.getTransaction().rollback();
