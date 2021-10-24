@@ -34,13 +34,11 @@ public class bookingService {
             CriteriaQuery<User> userQuery = cb.createQuery(User.class);
             Root<User> userRoot = userQuery.from(User.class);
             userQuery.where(cb.equal(userRoot.get("ssn"), bookPatch.getSsn()));
-            System.out.println(userRoot.get("\nssn\n"));
             List<User> userList = session.createQuery(userQuery).getResultList();
             User u = userList.get(0);
             u.getSsnList().add(bookPatch);
             session.flush();
 
-            //todo: figure out 1220 error
             session.beginTransaction();
             session.save(bookPatch);
             session.getTransaction().commit();
