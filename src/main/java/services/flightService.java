@@ -28,6 +28,7 @@ public class flightService {
         //call session.flush()
         //Note: that anything we pull out of the database into a java object is now in persistent state.
         try {
+            //TODO: Change this to work with updates
             //Departure
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<City> query = cb.createQuery(City.class);

@@ -9,18 +9,35 @@ public class Booking {
 
     public Booking() {}
 
-    public Booking(int ticket_num, boolean check_in){
-        this.ticket_num = ticket_num;
-        this.check_in = check_in;
-    }
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="ticket_number")
     private int ticket_num;
 
-    @Column(nullable = false)
+    @Column(nullable=false)
     private boolean check_in;
+
+    @Column(nullable = false)
+    private int flight_id;
+
+    @Column(nullable = false)
+    private int ssn_book;
+
+    public int getFlight_id() {
+        return flight_id;
+    }
+
+    public void setFlight_id(int flight_id) {
+        this.flight_id = flight_id;
+    }
+
+    public int getSsn() {
+        return ssn_book;
+    }
+
+    public void setSsn(int ssn) {
+        this.ssn_book = ssn;
+    }
 
     public boolean isCheck_in() {
         return check_in;
