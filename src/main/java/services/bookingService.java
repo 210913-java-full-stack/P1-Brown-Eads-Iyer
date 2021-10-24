@@ -20,6 +20,9 @@ public class bookingService {
 
     public static void saveNewBooking(Booking bookPatch){
         try{
+            Booking book = session.get(Booking.class, bookPatch.getTicket_num());
+
+            if (book == null){
             CriteriaBuilder cb = session.getCriteriaBuilder();
 
             //tie to flight
@@ -34,16 +37,19 @@ public class bookingService {
             CriteriaQuery<User> userQuery = cb.createQuery(User.class);
             Root<User> userRoot = userQuery.from(User.class);
             userQuery.where(cb.equal(userRoot.get("ssn"), bookPatch.getSsn()));
-            System.out.println(userRoot.get("\nssn\n"));
             List<User> userList = session.createQuery(userQuery).getResultList();
             User u = userList.get(0);
             u.getSsnList().add(bookPatch);
             session.flush();
 
-            //todo: figure out 1220 error
             session.beginTransaction();
             session.save(bookPatch);
             session.getTransaction().commit();
+            }else {
+                book.setSsn(bookPatch.getSsn());
+                book.setCheck_in(bookPatch.isCheck_in());
+                book.setFlight_id(bookPatch.getFlight_id());
+            }
         }catch(Exception e){
             //TODO: logger
             session.getTransaction().rollback();

@@ -17,7 +17,7 @@ public class flightService {
         return session.get(Flight.class, flightNum);
     }
 
-    public static void saveNewFlight(Flight flight){
+    public static void saveNewFlight(Flight flightPatch){
         //add to this logic: connection to the cities:
         //criteria query for city that matches departure city.
         //build the whole thing...
@@ -28,26 +28,34 @@ public class flightService {
         //call session.flush()
         //Note: that anything we pull out of the database into a java object is now in persistent state.
         try {
-            //TODO: Change this to work with updates
-            //Departure
-            CriteriaBuilder cb = session.getCriteriaBuilder();
-            CriteriaQuery<City> query = cb.createQuery(City.class);
-            Root<City> root = query.from(City.class);
-            query.where(cb.equal(root.get("code"), flight.getDepartureCode()));
-            List<City> list = session.createQuery(query).getResultList();
-            City c = list.get(0);
-            c.getDeparture().add(flight);
+            Flight flight = session.get(Flight.class, flightPatch.getFlight_number());
+            if (flight == null){
+                //Departure
+                CriteriaBuilder cb = session.getCriteriaBuilder();
+                CriteriaQuery<City> query = cb.createQuery(City.class);
+                Root<City> root = query.from(City.class);
+                query.where(cb.equal(root.get("code"), flightPatch.getDepartureCode()));
+                List<City> list = session.createQuery(query).getResultList();
+                City c = list.get(0);
+                c.getDeparture().add(flightPatch);
 
-            //Destination
-            query.where(cb.equal(root.get("code"), flight.getDestinationCode()));
-            list = session.createQuery(query).getResultList();
-            c = list.get(0);
-            c.getDestination().add(flight);
-            session.flush();
+                //Destination
+                query.where(cb.equal(root.get("code"), flightPatch.getDestinationCode()));
+                list = session.createQuery(query).getResultList();
+                c = list.get(0);
+                c.getDestination().add(flightPatch);
+                session.flush();
 
-            session.beginTransaction();
-            session.save(flight);
-            session.getTransaction().commit();
+                session.beginTransaction();
+                session.save(flightPatch);
+                session.getTransaction().commit();
+            }
+            else{
+                flight.setFlight_num(flightPatch.getFlight_num());
+                flight.setDepartureCode(flightPatch.getDepartureCode());
+                flight.setDestinationCode(flightPatch.getDestinationCode());
+                session.flush();
+            }
         } catch (Exception e) {
             session.getTransaction().rollback();
             System.out.println(e.toString());
