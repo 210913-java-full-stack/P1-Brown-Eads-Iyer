@@ -20,27 +20,27 @@ public class bookingService {
 
     public static void saveNewBooking(Booking bookPatch){
         try{
-            //tie to flight
             CriteriaBuilder cb = session.getCriteriaBuilder();
-            CriteriaQuery<Flight> query = cb.createQuery(Flight.class);
-            Root<Flight> root = query.from(Flight.class);
-            query.where(cb.equal(root.get("flight_number"), bookPatch.getFlight_id()));
-            List<Flight> list = session.createQuery(query).getResultList();
+
+            //tie to flight
+            CriteriaQuery<Flight> flightQuery = cb.createQuery(Flight.class);
+            Root<Flight> root = flightQuery.from(Flight.class);
+            flightQuery.where(cb.equal(root.get("flight_number"), bookPatch.getFlight_id()));
+            List<Flight> list = session.createQuery(flightQuery).getResultList();
             Flight f = list.get(0);
             f.getFlight_num().add(bookPatch);
 
             //tie to user
-            CriteriaQuery<User> q = cb.createQuery(User.class);
-            Root<User> r = q.from(User.class);
-            query.where(cb.equal(r.get("ssn"), bookPatch.getSsn()));
-            List<User> userList = session.createQuery(q).getResultList();
+            CriteriaQuery<User> userQuery = cb.createQuery(User.class);
+            Root<User> userRoot = userQuery.from(User.class);
+            userQuery.where(cb.equal(userRoot.get("ssn"), bookPatch.getSsn()));
+            System.out.println(userRoot.get("\nssn\n"));
+            List<User> userList = session.createQuery(userQuery).getResultList();
             User u = userList.get(0);
             u.getSsnList().add(bookPatch);
             session.flush();
 
-            //figure out 1220 error
-            System.out.println(bookPatch.getSsn());
-
+            //todo: figure out 1220 error
             session.beginTransaction();
             session.save(bookPatch);
             session.getTransaction().commit();
