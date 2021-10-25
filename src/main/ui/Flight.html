@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="">
 </head>
 
-<body>
+<body onload="getFlight()">
 <div class="main">
     <div class="header"></div>
     <div id="banner"><br>
@@ -26,55 +26,19 @@
     </div>
 </div>
 
-
-
 <div class="row">
     <div class="column0"></div>
     <div class="column1">
-        <H1>Flight Planner</H1>
-        <br>
-        <form id="form_1" action="#" method="post">
-            Leaving From:<br>
-            <select name="cities" id="depart">
-                <option value=""></option>
-                <option value="DEN">Denver, CO</option>
-                <option value="DFW">Dallas/ Fort Worth, TX</option>
-                <option value="MCO">Orlando, FL</option>
-                <option value="IAD">Washington, DC</option>
-                <option value="IAH">Houston, TX</option>
-                <option value="SLC">Salt LAke City, UT</option>
-                <option value="ORD">Chicago, IL</option>
-                <option value="SFO">San Francisco, CA</option>
-                <option value="JFK">New York, NY</option>
-                <option value="DTW">Detroit, MI</option>
-                <option value="LAX">Los Angeles, CA</option>
-                <option value="IND">Indianapolis, IN</option>
-                <option value="CLT">Charlotte, NC</option>
-            </select>
-            <br><br>
-            Going To:<br>
-            <select name="cities" id="dest">
-                <option value=""></option>
-                <option value="DEN">Denver, CO</option>
-                <option value="DFW">Dallas/ Fort Worth, TX</option>
-                <option value="MCO">Orlando, FL</option>
-                <option value="IAD">Washington, DC</option>
-                <option value="IAH">Houston, TX</option>
-                <option value="SLC">Salt LAke City, UT</option>
-                <option value="ORD">Chicago, IL</option>
-                <option value="SFO">San Francisco, CA</option>
-                <option value="JFK">New York, NY</option>
-                <option value="DTW">Detroit, MI</option>
-                <option value="LAX">Los Angeles, CA</option>
-                <option value="IND">Indianapolis, IN</option>
-                <option value="CLT">Charlotte, NC</option>
-            </select><br><br>
-            <a href="#" class="button">Go!</a><br>
-        </form><br>
         <h1>Purchase Tickets</h1><br>
-        <form id="form_2" action="#" method="post">
+        <h5>For our accuracy please input the last
+            four of your social security number.</h5>
+        <form id="form_2">
+            <label>SSN</label>
+            <input type=password id="ssn" name="ressn">
+            <br><br>
             <label>Flight Number:</label>
-            <input id="fnum" name="fnum" type="flightNum"><br><br>
+            <input id="fnum" name="fnum" type="flightNum">
+            <br><br>
             <label>Number of Tickets:</label>
             <select name="passangers" id="pass">
                 <option value="1">One</option>
@@ -88,7 +52,7 @@
                 <option value="9">Nine</option>
                 <option value="10">Ten</option>
             </select><br>
-            <a href="#" class="button">Purchase</a><br>
+            <a id="purchaseButt" class="button">Purchase</a><br>
         </form>
     </div>
     <div class="column2">
@@ -97,7 +61,7 @@
         <table id="flight-table" class='table'>
             <thead>
             <tr>
-                <th style="width:44px">Flight Number</th>
+                <th style="width:44px">Flight_Number</th>
                 <th style="width:200px">From</th>
                 <th style="width:200px">To</th>
             </tr>
@@ -113,10 +77,9 @@
             most enjoyable trip possible. No matter if your traveling for business, pleasure,
             or just on your way home, all you have to do... is dream.</p1>
         <br><br>
-        <h4>To view what flights we have coming up, just select what city you're leaving from, the city
-            you would like to go to, and then hit the "GO" button. Don't care where the flight goes? Just leave the departure blank and <br><br>
-            In order to purchase tickets, you must first view flights, choose the class you want to
-            fly in, and then the number of tickets you want to purchase.
+        <h4>
+            In order to purchase tickets, choose from any of the flights we have coming up and then
+            the number of tickets you want to purchase.
         </h4>
     </div>
     <div class="column0"></div>
@@ -124,27 +87,51 @@
 
 
 <script>
-        var
-        async function getFlight(){
+        var form = document.getElementById("form_2");
+        purchaseButt.addEventListener("click", function (event) {
+            event.preventDefault();
+            console.log(fnum.value);
+            console.log(ssn.value);
+            console.log(pass.value);
+            marshall1(fnum.value, ssn.value, pass.value);
+        });
 
-            let response = await fetch("http://localhost:8080/Proj1/flight");
+        async function marshall1(flightNum, ssn, pass){
+            let book = {
+                flight_id : flightNum,
+                ssn : ssn,
+                ticket_num : null
+            }
+
+            for (let i = 0; i < pass; i++) {
+                let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/booking", {
+                method: "POST",
+                body: JSON.stringify(book)
+            })
+        };
+        }
+        async function getFlight() {
+
+            let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/flight");
             let json = await response.json();
 
             let table = document.getElementById("flight-body");
 
-            for(let element of json) {
+            for (let element of json) {
                 let parsedElement = {
-                    Flight Number:
-                    From:
-                    To:
+                    Flight_Number: element.flight_number,
+                    From: element.departureCode,
+                    To: element.destinationCode
+                }
                 let tr = table.insertRow(-1);
-                for(let key in element) {
+                for (let key in parsedElement) {
                     let cell = tr.insertCell(-1);
-                    cell.innerHTML =  element[key];
+                    cell.innerHTML = parsedElement[key];
                 }
             }
-        })();
-    </script>
+        };
+
+</script>
 </body>
 
 </html>

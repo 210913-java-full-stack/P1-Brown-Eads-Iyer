@@ -14,7 +14,7 @@ public class User {
     private int ssn;
 
     @OneToMany()
-    @JoinColumn(name = "user_ssn", nullable = false, referencedColumnName = "ssn")
+    @JoinColumn(name="user_ssn", nullable=false, referencedColumnName="ssn")
     private List<Booking> ssnList;
 
     @Column(name="first_name")
@@ -26,8 +26,9 @@ public class User {
     @Column
     private String password;
 
-
-
+    public List<Booking> getSsnList() {
+        return ssnList;
+    }
 
     public String getfName() {
         return fName;

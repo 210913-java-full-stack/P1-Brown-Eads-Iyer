@@ -18,7 +18,7 @@ public class userServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-        throws ServletException, IOException {
+            throws ServletException, IOException {
         List<User> userList = userService.getAllUsers();
         ObjectMapper map = new ObjectMapper();
         resp.getWriter().write(map.writeValueAsString(userList));
@@ -28,7 +28,7 @@ public class userServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-        throws IOException, ServletException {
+            throws IOException, ServletException {
         InputStream reqBody = req.getInputStream();
         Scanner sc = new Scanner(reqBody, StandardCharsets.UTF_8.name());
         String json = sc.useDelimiter("\\A").next();

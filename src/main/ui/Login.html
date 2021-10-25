@@ -42,36 +42,30 @@
     <div class="column2">
         <h3>Please Login</h3>
         <form id="login-form">
-            First Name:
-            <input type="text" name="first" id="login-first" class="login-form-field">
-            <br><br>
-            Last Name:
-            <input type="text" name="last" id="login-last" class="login-form-field">
+            Last Four of your Social Security Number:
+            <input type="password" name="first" id="loginssn" class="login-form-field">
             <br><br>
             Password :
-            <input type="password" name="password" id="login-password" class="login-form-field">
+            <input type="password" name="password" id="loginpass" class="login-form-field">
             <br><br>
-            <a href="#" class="button">Login</a>
+            <a id = "insub" href="#" class="button">Login</a>
             <br><br>
         </form>
         <h3>Don't have an account? Create one here</h3>
         <form id="create-form">
             First Name:
-            <input type="text" name="first" id="first-field" class="create-form-field">
+            <input type="text" name="first" id="first" class="create-form-field">
             <br><br>
             Last Name:
-            <input type="text" name="last" id="last-field" class="create-form-field">
+            <input type="text" name="last" id="last" class="create-form-field">
             <br><br>
             Password :
-            <input type="password" name="password" id="pw-create-field" class="create-form-field">
-            <br><br>
-            Re-input <br>Password :
-            <input type="password" name="password" id="pw-confirm-field" class="create-form-field">
+            <input type="password" name="password" id="pass" class="create-form-field">
             <br><br>
             Last Four Digits of your <br>Social Security Number :
-            <input type="ssn" name="ssn" id="ssn-field" class="create-form-field">
+            <input type="ssn" name="ssn" id="ssn" class="create-form-field">
             <br><br>
-            <a href="#" class="button">Create</a>
+            <a id = "createSub" href="#" class="button">Create</a>
             <br><br>
         </form>
     </div>
@@ -83,30 +77,67 @@
 </div>
 <script>
     var form = document.getElementById("login-form");
-    form.getElementByClass("button").addEventListener("click", function () {
-    marshalling(login-first.value, login-last.value, login-password.value);
+    insub.addEventListener("click", function(event) {
+    event.preventDefault();
+    if((loginssn.value == 0000)&&(loginpass.value == 0000)){
+    window.location.href = "Admin.html";
+    }
+    else{
+    console.log(loginssn.value);
+    console.log(loginpass.value);
+    marshall1(loginssn.value, loginpass.value);
+    }});
+
+    var form = document.getElementById("create-form");
+    createSub.addEventListener("click", function(event) {
+    event.preventDefault();
+    console.log(first.value);
+    console.log(last.value);
+    console.log(pass.value);
+    console.log(ssn.value);
+    marshall2(first.value, last.value, pass.value, ssn.value);
     });
 
-    async function marshalling(lFirst, lLast, lPass){
+    async function marshall1(lSsn, lPass){
         let user = {
-            fName : lFirst,
-            lName : lLast,
+            ssn : lSsn,
             password : lPass,
         }
 
-        let response = await fetch("http://localhost:8080/Proj1/user");
-            method "POST",
-            headers: {"Content-Type":application/json"},
-            body: JSON.stringify(user)
+        let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/user", {
+            method: "GET",
         });
 
-        if(response.status = 401){
+        if(response.status != 200){
             document.getElementById("loginForm").reset();
             alert("Login Failed");
         }
         else{
             window.location.href = "Member.html";
         }
+
+    async function marshall2(cFirst, cLast, cPass, cSsn){
+        let user = {
+            fName : cFirst,
+            lName : cLast,
+            password : cPass,
+            ssn : cSsn
+        }
+
+        let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/user", {
+            method: "POST",
+            body: JSON.stringify(user)
+        });
+
+        if(response.status != 202){
+            document.getElementById("loginForm").reset();
+            alert("Login Failed");
+        }
+        else{
+            window.location.href = "Member.html";
+        }
+    }
+    }
 </script>
 </body>
 

@@ -1,7 +1,6 @@
 package models;
 
 import javax.persistence.*;
-import java.awt.print.Book;
 import java.util.List;
 
 @Entity
@@ -14,9 +13,31 @@ public class Flight {
     @Column()
     private int flight_number;
 
-    @OneToMany
-    @JoinColumn(name = "flight_number", nullable = false)
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinColumn(name="flight_number", nullable=false)
     private List<Booking> flight_num;
+
+    @Column(nullable=false)
+    private String departureCode;
+
+    @Column(nullable=false)
+    private String destinationCode;
+
+    public String getDepartureCode() {
+        return departureCode;
+    }
+
+    public void setDepartureCode(String departureCode) {
+        this.departureCode = departureCode;
+    }
+
+    public String getDestinationCode() {
+        return destinationCode;
+    }
+
+    public void setDestinationCode(String destinationCode) {
+        this.destinationCode = destinationCode;
+    }
 
     public int getFlight_number() {return flight_number;}
 

@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="">
 </head>
 
-<body>
+<body onload = "loadTables()">
 <div class="main">
     <div class="header"></div>
     <div id="banner"><br>
@@ -31,8 +31,10 @@
     <div class="column1">
         <br><br>
         <h2>Create A Flight</h2>
-        <form id="form_1" action="#" method="post">
-            Leaving From:<br>
+        <form id="form_1">
+            <h5>Flight Number: </h5>
+            <input type="text" name="flight" id="flight-num-field" class="flight-num-field">
+            <h5>Leaving From:</h5>
             <select name="cities" id="depart">
                 <option value=""></option>
                 <option value="DEN">Denver, CO</option>
@@ -49,8 +51,7 @@
                 <option value="IND">Indianapolis, IN</option>
                 <option value="CLT">Charlotte, NC</option>
             </select>
-            <br><br>
-            Going To:<br>
+            <h5>Going To:</h5>
             <select name="cities" id="dest">
                 <option value=""></option>
                 <option value="DEN">Denver, CO</option>
@@ -67,49 +68,35 @@
                 <option value="IND">Indianapolis, IN</option>
                 <option value="CLT">Charlotte, NC</option>
             </select><br><br>
-            <a href="#" class="button">Go!</a><br>
+            <a id = newFlightButt class="button">Create Flight</a><br>
         </form><br>
     </div>
     <div class="column2">
-        <h2>Get Flight Manifest</h2>
-        <form id="flight-form">
-            <h5>Flight Number: </h5>
-            <input type="text" name="flight" id="flight-num-field" class="flight-num-field">
-            <br><br>
-            <a href="#" class="button">Get Manifest</a>
-            <br><br>
-        </form>
-        <table id="flight-deets" class='table'>
-            <thead>Fight Deets
+        <h2>Current Flights</h2>
+        <table id="flight-table" class='table'>
+            <thead>
             <tr>
-                <th style="width:120px">Flight Number</th>
-                <th style="width:200px">Departure</th>
-                <th style="width:200px">Destination</th>
+                <th style="width:44px">Flight_Number</th>
+                <th style="width:200px">From</th>
+                <th style="width:200px">To</th>
             </tr>
             </thead>
-            <tbody>
-            <tr>
-                <td>100</td>
-                <td>Dallas/Fort Worth, TX</td>
-                <td>Dallas/Fort Worth, TX</td>
-            </tr>
+            <tbody id="flight-body">
+
             </tbody>
         </table>
+        <h2>Flight Manifest</h2>
         <table id="flight-manifest" class='table'>
-            <br>
-            <thead>Flight Manifest
+            <thead>
             <tr>
-                <th style="width:120px">Ticket Number</th>
-                <th style="width:200px">First Name</th>
-                <th style="width:200px">Last Name</th>
+                <th style="width:120px">Ticket_Number</th>
+                <th style="width:200px">Flight_Number</th>
+                <th style="width:200px">Customer_Number</th>
+                <th style="width:200px">Checked_In</th>
             </tr>
             </thead>
-            <tbody>
-            <tr>
-                <td>101</td>
-                <td>Mackenzie</td>
-                <td>Michaels</td>
-            </tr>
+            <tbody id="manifest">
+
             </tbody>
         </table>
     </div>
@@ -120,13 +107,51 @@
             <h5>Flight Number: </h5>
             <input type="text" name="del-flight" id="del-flight-field" class="del-flight-field">
             <br><br>
-            <a href="#" class="button">Delete Flight</a>
+            <a id = delFlightButt class="button">Delete Flight</a>
             <br><br>
         </form>
     </div>
     <div class="column0"></div>
 </div>
-<script src="" async defer></script>
+<script>
+    async function loadTables() {
+        let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/flight");
+                let json = await response.json();
+
+                let table = document.getElementById("flight-body");
+
+                for (let element of json) {
+                    let parsedElement = {
+                        Flight_Number: element.flight_number,
+                        From: element.departureCode,
+                        To: element.destinationCode
+                    }
+                    let tr = table.insertRow(-1);
+                    for (let key in parsedElement) {
+                        let cell = tr.insertCell(-1);
+                        cell.innerHTML = parsedElement[key];
+                    }
+                }
+        let response2 = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/booking");
+                let json2 = await response2.json();
+
+                let table2 = document.getElementById("manifest");
+
+                for (let element of json2) {
+                    let parsedElement = {
+                        Ticket_Number: element.ticket_num,
+                        Flight_Number: element.flight_id,
+                        Customer_Number: element.ssn,
+                        Checked_In: element.check_in
+                    }
+                    let tr = table2.insertRow(-1);
+                    for (let key in parsedElement) {
+                        let cell = tr.insertCell(-1);
+                        cell.innerHTML = parsedElement[key];
+                }
+            }
+        };
+</script>
 </body>
 
 </html>

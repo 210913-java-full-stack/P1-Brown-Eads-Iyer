@@ -2,6 +2,7 @@ package services;
 
 import models.User;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -15,14 +16,23 @@ public class userService {
         return session.get(User.class, ssn);
     }
 
-    public static void saveNewUser(User user){
-        //TODO: checkout that double submit bug
+    public static void saveNewUser(User userPatch){
         try{
-            session.beginTransaction();
-            session.saveOrUpdate(user);
-            session.getTransaction().commit();
+            User u = session.get(User.class, userPatch.getSsn());
+            if(u == null){
+                Transaction t = session.beginTransaction();
+                session.save(userPatch);
+                t.commit();
+            } else {
+                u.setfName(userPatch.getfName());
+                u.setlName(userPatch.getlName());
+                u.setSsn(userPatch.getSsn());
+                u.setPassword(userPatch.getPassword());
+                session.flush();
+            }
         }
         catch(Exception e){
+            //logger
             session.getTransaction().rollback();
             System.out.println("users: Bad transaction rolled back");
         }
@@ -47,7 +57,4 @@ public class userService {
     public static void setSession(Session session){
         userService.session = session;
     }
-
-    public static void closeSession(){session.close();}
-
 }

@@ -29,7 +29,7 @@ public class cityServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-        throws ServletException, IOException {
+            throws ServletException, IOException {
         InputStream reqBody = req.getInputStream();
         Scanner sc = new Scanner(reqBody, StandardCharsets.UTF_8.name());
         String jsonTxt = sc.useDelimiter("\\A").next();
