@@ -2,6 +2,7 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <![endif]-->
 <!--[if gt IE 8]>      <html class="no-js"> <!<![endif]-->
 <html>
 
@@ -11,35 +12,130 @@
     <link rel="stylesheet" href="css/style.css" type="text/css" media="all">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Flight</title>
+    <title>Login</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="">
 </head>
 
 <body>
-    <div class="main">
-        <div class="header"></div>
-        <div id="banner"><br>
-            <h1>Dream Airlines</h1>
-            <h2>Come Fly With Us</h2>
-        </div>
+<div class="main">
+    <div class="header"></div>
+    <div id="banner"><br>
+        <h1>Dream Airlines</h1>
+        <h2>Come Fly With Us</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="column0"></div>
+    <div class="column1">
+        <br>
+        <h3>Please login or create an account.</h3>
+        <p>In order for us to serve you better, we need to know who you are. If you
+            have an account, please sign in. If you have never been here before, please
+            create an account so that we have a record of your tickets.</p>
+    </div>
+    <div class="column2">
+        <h3>Please Login</h3>
+        <form id="login-form">
+            Last Four of your Social Security Number:
+            <input type="password" name="first" id="loginssn" class="login-form-field">
+            <br><br>
+            Password :
+            <input type="password" name="password" id="loginpass" class="login-form-field">
+            <br><br>
+            <a id = "insub" href="#" class="button">Login</a>
+            <br><br>
+        </form>
+        <h3>Don't have an account? Create one here</h3>
+        <form id="create-form">
+            First Name:
+            <input type="text" name="first" id="first" class="create-form-field">
+            <br><br>
+            Last Name:
+            <input type="text" name="last" id="last" class="create-form-field">
+            <br><br>
+            Password :
+            <input type="password" name="password" id="pass" class="create-form-field">
+            <br><br>
+            Last Four Digits of your <br>Social Security Number :
+            <input type="ssn" name="ssn" id="ssn" class="create-form-field">
+            <br><br>
+            <a id = "createSub" href="#" class="button">Create</a>
+            <br><br>
+        </form>
     </div>
 
-
-
-    <div class="row">
-        <div class="column1">
-
-        </div>
-        <div class="column2">
-
-        </div>
-        <div class="column3">
-
-        </div>
+    <div class="column3">
+        <img src="pics/Plane_Body_201.png" alt="Plane Body">
     </div>
-    <script src="" async defer></script>
+    <div class="column0"></div>
+</div>
+<script>
+    var form = document.getElementById("login-form");
+    insub.addEventListener("click", function(event) {
+    event.preventDefault();
+    if((loginssn.value == 0000)&&(loginpass.value == 0000)){
+    window.location.href = "Admin.html";
+    }
+    else{
+    console.log(loginssn.value);
+    console.log(loginpass.value);
+    marshall1(loginssn.value, loginpass.value);
+    }});
+
+    var form = document.getElementById("create-form");
+    createSub.addEventListener("click", function(event) {
+    event.preventDefault();
+    console.log(first.value);
+    console.log(last.value);
+    console.log(pass.value);
+    console.log(ssn.value);
+    marshall2(first.value, last.value, pass.value, ssn.value);
+    });
+
+    async function marshall1(lSsn, lPass){
+        let user = {
+            ssn : lSsn,
+            password : lPass,
+        }
+
+        let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/user", {
+            method: "GET",
+        });
+
+        if(response.status != 200){
+            document.getElementById("loginForm").reset();
+            alert("Login Failed");
+        }
+        else{
+            window.location.href = "Member.html";
+        }
+    }
+    async function marshall2(cFirst, cLast, cPass, cSsn){
+        let user = {
+            fName : cFirst,
+            lName : cLast,
+            password : cPass,
+            ssn : cSsn
+        }
+
+        let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/user", {
+            method: "POST",
+            body: JSON.stringify(user)
+        });
+
+        if(response.status != 202){
+            document.getElementById("loginForm").reset();
+            alert("Login Failed");
+        }
+        else{
+            window.location.href = "Member.html";
+        }
+    }
+
+</script>
 </body>
 
 </html>
