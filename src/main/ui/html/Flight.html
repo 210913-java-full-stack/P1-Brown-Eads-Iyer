@@ -1,3 +1,11 @@
+
+<!--The Flight page (like most of the others) is set up for the user. It will
+ allow the user to view all the available flights and then 'purchase' up to
+ 10 tickets per flight.
+ The page is divided by 4 columns with something on each column except the
+ sides, which are blank.-->
+
+
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -7,9 +15,8 @@
 
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="css/layout.css" type="text/css" media="all">
-    <link rel="stylesheet" href="css/style.css" type="text/css" media="all">
-
+    <link rel="stylesheet" href="../css/layout.css" type="text/css" media="all">
+    <link rel="stylesheet" href="../css/style.css" type="text/css" media="all">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Flight</title>
     <meta name="description" content="">
@@ -18,6 +25,7 @@
 </head>
 
 <body onload="getFlight()">
+
 <div class="main">
     <div class="header"></div>
     <div id="banner"><br>
@@ -52,7 +60,7 @@
                 <option value="9">Nine</option>
                 <option value="10">Ten</option>
             </select><br>
-            <a id="purchaseButt" class="button">Purchase</a><br>
+            <a id = "purchaseButt" class="button">Purchase</a><br>
         </form>
     </div>
     <div class="column2">
@@ -84,54 +92,7 @@
     </div>
     <div class="column0"></div>
 </div>
-
-
-<script>
-        var form = document.getElementById("form_2");
-        purchaseButt.addEventListener("click", function (event) {
-            event.preventDefault();
-            console.log(fnum.value);
-            console.log(ssn.value);
-            console.log(pass.value);
-            marshall1(fnum.value, ssn.value, pass.value);
-        });
-
-        async function marshall1(flightNum, ssn, pass){
-            let book = {
-                flight_id : flightNum,
-                ssn : ssn,
-                ticket_num : null
-            }
-
-            for (let i = 0; i < pass; i++) {
-                let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/booking", {
-                method: "POST",
-                body: JSON.stringify(book)
-            })
-        };
-        }
-        async function getFlight() {
-
-            let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/flight");
-            let json = await response.json();
-
-            let table = document.getElementById("flight-body");
-
-            for (let element of json) {
-                let parsedElement = {
-                    Flight_Number: element.flight_number,
-                    From: element.departureCode,
-                    To: element.destinationCode
-                }
-                let tr = table.insertRow(-1);
-                for (let key in parsedElement) {
-                    let cell = tr.insertCell(-1);
-                    cell.innerHTML = parsedElement[key];
-                }
-            }
-        };
-
-</script>
+<script src="../js/Flight.js"></script>
 </body>
 
 </html>
