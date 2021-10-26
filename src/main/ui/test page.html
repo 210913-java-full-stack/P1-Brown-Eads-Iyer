@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+</head>
+<body onload="getTable()">
+
+<h5>Flight Number: </h5>
+<input type="text" name="typename" id="typeID" class="textField">
+
+<button type="submit" value="Submit">Submit</button>
+
+<table id="table" class='table'>
+    <thead>
+    <tr>
+        <th style="width:44px">SSN</th>
+    </tr>
+    </thead>
+    <tbody id="body">
+
+    </tbody>
+</table>
+<script>
+async function getTable() {
+
+            let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/user");
+            let json = await response.json();
+
+            let table = document.getElementById("body");
+
+            for (let element of json) {
+                let parsedElement = {
+                    SSN: element.ssn
+                }
+                let tr = table.insertRow(-1);
+                for (let key in parsedElement) {
+                    let cell = tr.insertCell(-1);
+                    cell.innerHTML = parsedElement[key];
+                }
+            }
+        };
+</script>
+</body>
+</html>

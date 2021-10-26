@@ -24,6 +24,7 @@ public class bookingService {
     public static void saveNewBooking(Booking bookPatch){
         try{
             Booking book = session.get(Booking.class, bookPatch.getTicket_num());
+
             CriteriaBuilder cb = session.getCriteriaBuilder();
             Transaction tx;
 

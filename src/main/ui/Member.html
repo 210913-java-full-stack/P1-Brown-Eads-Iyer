@@ -39,9 +39,9 @@
             too long though, we can't hold on forever.</p>
         <form id="checkin-form">
             <h5>Ticket Number: </h5>
-            <input type="text" name="ticket" id="checkin-field" class="checkin-form-field">
+            <input type="text" name="ticket" id="checkinField" class="checkin-form-field">
             <br><br>
-            <a href="#" class="button">Check In</a>
+            <a id = "checkButt" class="button">Check In</a>
             <br><br>
         </form>
         <br>
@@ -51,20 +51,77 @@
             click the 'Cancel' button.</p>
         <form id="cancel-form">
             <h5>Ticket Number: </h5>
-            <input type="text" name="ticket" id="cancel-field" class="cancel-form-field">
+            <input type="text" name="ticket" id="cancelField" class="cancel-form-field">
             <br><br>
             <!--input type="submit" value="Check-In" id="checkin-form-submit"-->
-            <a href="#" class="button">Cancel</a>
+            <a id = "cancelButt" class="button">Cancel</a>
             <br><br>
         </form>
     </div>
 
     <div class="column3">
         <img src="pics/Take-Off.gif" alt="Take Off">
+        <br><br>
+        <br>
+        <h4>To purchase more tickets please click below.</h4>
+        <a href = "Flight.html" id = "toFlightButt" class="button">Buy Tickets</a>
     </div>
     <div class="column0"></div>
 </div>
 <script src="" async defer></script>
+
+
+<script>
+    var form = document.getElementById("checkin-form");
+    checkButt.addEventListener("click", function(event) {
+    event.preventDefault();
+    console.log(checkinField.value);
+    marshall1(checkinField.value);
+    });
+
+    var form = document.getElementById("cancel-form");
+    cancelButt.addEventListener("click", function(event) {
+    event.preventDefault();
+    console.log(cancelField.value);
+    marshall2(cancelField.value);
+    });
+
+    async function marshall1(checkTik){
+        let checkTicket = {
+            ticket_num : checkTik,
+            check_in : true
+        }
+
+        let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/booking", {
+            method: "POST",
+            body: JSON.stringify(checkTicket)
+        });
+
+        if(response.status != 202){
+            document.getElementById("checkin-form").reset();
+            alert("Check In Failed");
+        }
+        else {window.location.href = "Member.html";}
+
+    async function marshall2(cancelTik){
+        let ticket = {ticket_num : cancelTik,}
+
+        let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/booking", {
+            method: "POST",
+            body: JSON.stringify(ticket)
+        });
+
+        if(response.status = 401){
+            document.getElementById("cancel-form").reset();
+            alert("Ticket Cancellation Failed");
+        }
+        else{
+            window.location.href = "Member.html";
+        }
+    }
+}
+</script>
+
 </body>
 
 </html>
