@@ -10,8 +10,14 @@
             event.preventDefault();
             console.log(fnum.value);
             console.log(sessionStorage.getItem("SSN"));
-            marshall1(fnum.value, ssn.value, pass.value);
+            marshall1(fnum.value, sessionStorage.getItem("SSN"), pass.value);
         });
+
+        logoutButt.addEventListener("click", function (event) {
+            event.preventDefault();
+            sessionStorage.clear();
+            window.location.href = "Login.html";
+            });
 
         async function marshall1(flightNum, ssn, pass){
             let book = {

@@ -1,7 +1,8 @@
 
 <!--The Flight page (like most of the others) is set up for the user. It will
  allow the user to view all the available flights and then 'purchase' up to
- 10 tickets per flight.
+ 10 tickets per flight. Clicking the "log Out" button sends the user back
+ to the log in screen.
  The page is divided by 4 columns with something on each column except the
  sides, which are blank.-->
 
@@ -37,17 +38,16 @@
 <div class="row">
     <div class="column0"></div>
     <div class="column1">
-        <h1>Purchase Tickets</h1><br>
-        <h5>For our accuracy please input the last
-            four of your social security number.</h5>
+        <h1>Purchase Tickets</h1>
+        <h5>To purchase tickets, just find the flight number, usually
+            a three-digit number, from the table then select how many
+            tickets you wish to purchase.</h5>
         <form id="form_2">
-            <label>SSN</label>
-            <input type=password id="ssn" name="ressn">
-            <br><br>
             <label>Flight Number:</label>
             <input id="fnum" name="fnum" type="flightNum">
             <br><br>
             <label>Number of Tickets:</label>
+            <br>
             <select name="passangers" id="pass">
                 <option value="1">One</option>
                 <option value="2">Two</option>
@@ -59,7 +59,8 @@
                 <option value="8">Eight</option>
                 <option value="9">Nine</option>
                 <option value="10">Ten</option>
-            </select><br>
+            </select>
+            <br><br>
             <a id = "purchaseButt" class="button">Purchase</a><br>
         </form>
     </div>
@@ -82,13 +83,11 @@
     <div class="column3">
         <h3>Why fly with us?</h3>
         <p1>Here at Dream Airlines, we strive to make your air travel the
-            most enjoyable trip possible. No matter if your traveling for business, pleasure,
+            most enjoyable trip possible. No matter if you're traveling for business, pleasure,
             or just on your way home, all you have to do... is dream.</p1>
         <br><br>
-        <h4>
-            In order to purchase tickets, choose from any of the flights we have coming up and then
-            the number of tickets you want to purchase.
-        </h4>
+        <h4>Done? Log out here.</h4>
+        <a id = "logoutButt" class="button">Log Out</a>
     </div>
     <div class="column0"></div>
 </div>

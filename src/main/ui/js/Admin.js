@@ -24,6 +24,12 @@
     marshall2(delFlightField.value);
     });
 
+    logoutButt.addEventListener("click", function (event) {
+        event.preventDefault();
+        sessionStorage.clear();
+        window.location.href = "Login.html";
+        });
+
     async function marshall1(flightNum, depart, dest){
         let createFlight = {
             flight_number: flightNum,

@@ -4,7 +4,9 @@
  * own functions but ultimately lead to the 'members' page. There
  * is now a session storage device to store the users ssn so the
  * program can use it throughout to make other changes without
- * repeatedly requesting the user to input it. Also, if an admin
+ * repeatedly requesting the user to input it. When the user
+ * clicks the log out button, then the session storage is cleared.
+ * This is done to clear the way for a new user. Also, if an admin
  * uses the ss of "0000" and password of "0000", they will be
  * sent to the admin page.
  */
