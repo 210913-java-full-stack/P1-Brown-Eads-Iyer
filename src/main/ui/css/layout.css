@@ -53,9 +53,6 @@ tr:nth-child(even) {
   padding: 20px;
   padding-left: 30px;
   text-align: left;
-  background-color: #ffffff;
-  height: 1020px;
-}
 
 .column3 {
   float: left;
