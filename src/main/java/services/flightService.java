@@ -4,6 +4,7 @@ import models.City;
 import models.Flight;
 
 import org.hibernate.Session;
+import utils.FileLogger;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -12,6 +13,7 @@ import java.util.List;
 
 public class flightService {
     private static Session session;
+    private static FileLogger f;
 
     public static Flight getFlightByFlightNum(int flightNum){
         return session.get(Flight.class, flightNum);
@@ -44,7 +46,6 @@ public class flightService {
                 list = session.createQuery(query).getResultList();
                 c = list.get(0);
                 c.getDestination().add(flightPatch);
-                session.flush();
 
                 session.beginTransaction();
                 session.save(flightPatch);
@@ -58,12 +59,16 @@ public class flightService {
             }
         } catch (Exception e) {
             session.getTransaction().rollback();
-            System.out.println(e.toString());
+            f.writeLog(e.getMessage() +
+                    "\n flights: bad transaction rolled back", 1);
         }
     }
 
-    public static void deleteFlight(Flight flight){
+    public static void deleteFlight(int flightNum){
+        Flight flight = getFlightByFlightNum(flightNum);
+        session.beginTransaction();
         session.delete(flight);
+        session.getTransaction().commit();
     }
 
     public static List<Flight> getAll(){

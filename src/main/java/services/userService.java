@@ -3,6 +3,7 @@ package services;
 import models.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import utils.FileLogger;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -11,6 +12,7 @@ import java.util.List;
 
 public class userService {
     private static Session session;
+    private static FileLogger f = FileLogger.getFileLogger();
 
     public static User getUserBySSN(int ssn){
         return session.get(User.class, ssn);
@@ -32,9 +34,10 @@ public class userService {
             }
         }
         catch(Exception e){
-            //logger
+            //TODO logger
             session.getTransaction().rollback();
-            System.out.println("users: Bad transaction rolled back");
+            f.writeLog(e.getMessage() +
+                    "users: Bad transaction rolled back", 1);
         }
     }
 
