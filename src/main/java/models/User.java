@@ -30,6 +30,11 @@ public class User {
         return ssnList;
     }
 
+    public Booking updateTicket(int ssn){
+        int match = -1;
+        return ssnList.get(match);
+    }
+
     public String getfName() {
         return fName;
     }

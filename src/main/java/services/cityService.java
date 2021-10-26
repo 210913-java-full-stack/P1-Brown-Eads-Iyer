@@ -4,6 +4,7 @@ import models.City;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import utils.FileLogger;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -12,6 +13,7 @@ import java.util.List;
 
 public class cityService {
     private static Session session;
+    private static FileLogger f = FileLogger.getFileLogger();
 
     public static City getCityByCode(String code){return session.get(City.class, code);}
 
@@ -32,7 +34,8 @@ public class cityService {
         catch(Exception e){
             //TODO dont forget to set up logger
             session.getTransaction().rollback();
-            System.out.println("cities: Bad transaction rolled back");
+            f.writeLog(e.getMessage() +
+                    "\ncities: Bad transaction rolled back", 0);
         }
     }
 

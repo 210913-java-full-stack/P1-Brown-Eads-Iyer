@@ -37,4 +37,17 @@ public class flightServlet extends HttpServlet {
         flightService.saveNewFlight(flight);
         resp.setStatus(202);
     }
+
+
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        InputStream reqBody = req.getInputStream();
+        Scanner sc = new Scanner(reqBody, StandardCharsets.UTF_8.name());
+        String jsonTxt = sc.useDelimiter("\\A").next();
+        System.out.println("JSON Text: " + jsonTxt);
+        ObjectMapper map = new ObjectMapper();
+        Flight flight = map.readValue(jsonTxt, Flight.class);
+        flightService.deleteFlight(flight.getFlight_number());
+        resp.setStatus(200);
+    }
 }

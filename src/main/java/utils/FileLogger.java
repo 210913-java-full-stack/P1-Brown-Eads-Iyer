@@ -61,7 +61,7 @@ public class FileLogger {
         StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
         String stackInfo = stackTraceElements[3].toString();
         String timestamp = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-        return String.format("%s%n   [%s]%n   %s%n", timestamp, stackInfo, msg);
+        return String.format("%s%n:   [%s]%n   %s%n", timestamp, stackInfo, msg);
     }
 
     public FileLogger console(boolean o){

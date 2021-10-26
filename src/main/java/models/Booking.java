@@ -7,19 +7,24 @@ import java.util.List;
 @Table(name="booking")
 public class Booking {
 
+    //Constructor for hibernate
     public Booking() {}
 
+    //id for booking table
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="ticket_number")
     private int ticket_num;
 
+    //Is the user on the plane?
     @Column(nullable=false)
     private boolean check_in;
 
+    //explicit flight identifier
     @Column(nullable = false)
     private int flight_id;
 
+    //explicit user ssn
     @Column(nullable = false)
     private int ssn_book;
 
