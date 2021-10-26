@@ -1,31 +1,34 @@
 package models;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name="booking")
+/**
+ * Model class for Booking aka Ticket
+ * @author James Brown
+ */
 public class Booking {
 
-    //Constructor for hibernate
+    //Constructor for Hibernate
     public Booking() {}
 
-    //id for booking table
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="ticket_number")
+    //id for booking table
     private int ticket_num;
 
-    //Is the user on the plane?
     @Column(nullable=false)
+    //Is the user on the plane?
     private boolean check_in;
 
-    //explicit flight identifier
     @Column(nullable = false)
+    //explicit flight identifier
     private int flight_id;
 
-    //explicit user ssn
     @Column(nullable = false)
+    //explicit user ssn
     private int ssn_book;
 
     public int getFlight_id() {
@@ -54,10 +57,6 @@ public class Booking {
 
     public int getTicket_num() {
         return ticket_num;
-    }
-
-    public void setTicket_num(int ticket_num) {
-        this.ticket_num = ticket_num;
     }
 
 }

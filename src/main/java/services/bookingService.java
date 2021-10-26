@@ -13,14 +13,26 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
+/**
+ * Class for querying and manipulating booking entries
+ * @author James Brown
+ */
 public class bookingService {
     private static Session session;
     private static FileLogger f = FileLogger.getFileLogger();
 
+    /**
+     * returns Booking session object
+     * @param ticketNum id for booking entry
+     */
     public static Booking getBookingByTicketNum(int ticketNum){
         return session.get(Booking.class, ticketNum);
     }
 
+    /**
+     * Saves or update and persists a Booking object
+     * @param bookPatch jsonBody from servlet
+     */
     public static void saveNewBooking(Booking bookPatch){
         try{
             Booking book = session.get(Booking.class, bookPatch.getTicket_num());
@@ -83,10 +95,18 @@ public class bookingService {
         }
     }
 
+    /**
+     * deletes booking entry from table
+     * @param booking jsonBody from servlet request
+     */
     public static void deleteBooking(Booking booking){
         session.delete(booking);
     }
 
+    /**
+     * Returns resultList containing all data from booking
+     * @return select * from booking
+     */
     public static List<Booking> getAll(){
         CriteriaBuilder cBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Booking> query = cBuilder.createQuery(Booking.class);
@@ -95,5 +115,9 @@ public class bookingService {
         return session.createQuery(query).getResultList();
     }
 
+    /**
+     * sets the Session for bookingService
+     * @param session session created in the hibernateManager
+     */
     public static void setSession(Session session){bookingService.session = session;}
 }

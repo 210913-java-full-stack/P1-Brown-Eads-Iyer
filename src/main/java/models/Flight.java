@@ -5,22 +5,32 @@ import java.util.List;
 
 @Entity
 @Table(name="flight")
+/**
+ * Model class for flight table
+ * @Author James Brown
+ * */
 public class Flight {
 
+    //No-args constructor for Hibernate
     public Flight(){}
 
     @Id
     @Column()
+    //id for each flight
     private int flight_number;
 
-    @OneToMany(cascade=CascadeType.ALL)
-    @JoinColumn(name="flight_number", nullable=false)
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="flight_number", nullable=false, referencedColumnName = "flight_number")
+    //Booking reference to flight
     private List<Booking> flight_num;
 
     @Column(nullable=false)
+    //departure code for flight
     private String departureCode;
 
     @Column(nullable=false)
+    //destination code for flight
     private String destinationCode;
 
     public String getDepartureCode() {

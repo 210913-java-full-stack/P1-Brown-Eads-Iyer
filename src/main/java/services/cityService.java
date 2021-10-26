@@ -11,12 +11,20 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
+/**
+ * Class for manipulating and querying city table
+ * @author James Brown
+ */
 public class cityService {
     private static Session session;
     private static FileLogger f = FileLogger.getFileLogger();
 
     public static City getCityByCode(String code){return session.get(City.class, code);}
 
+    /**
+     * saves or updates and persists city entry
+     * @param cityPatch jsonBody from http request
+     */
     public static void saveNewCity(City cityPatch){
         try{
             City city = session.get(City.class, cityPatch.getCode());
@@ -39,6 +47,10 @@ public class cityService {
         }
     }
 
+    /**
+     * Removes a specified flight entry
+     * @param city jsonBody from servlet request
+     */
     public static void deleteCity(City city){
         session.delete(city);
     }
@@ -51,6 +63,10 @@ public class cityService {
         return session.createQuery(query).getResultList();
     }
 
+    /**
+     * sets the Session for cityService
+     * @param session session created in the hibernateManager
+     */
     public static void setSession(Session session){
         cityService.session = session;
     }

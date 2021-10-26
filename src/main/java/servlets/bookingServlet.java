@@ -14,7 +14,19 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Accepts requests from http and generates an appropriate response
+ * for /booking
+ * @author James Brown
+ */
 public class bookingServlet extends HttpServlet {
+    /**
+     *
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -25,6 +37,13 @@ public class bookingServlet extends HttpServlet {
         resp.setStatus(200);
     }
 
+    /**
+     *
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {

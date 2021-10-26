@@ -5,34 +5,39 @@ import java.util.List;
 
 @Entity
 @Table(name="users")
+/**
+ * Model class for users table
+ * @Author James Brown
+ */
 public class User {
 
+    //no-args constructor for Hibernate
     public User(){}
 
     @Id
     @Column
+    //id for users table/user object
     private int ssn;
 
-    @OneToMany()
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="user_ssn", nullable=false, referencedColumnName="ssn")
+    //Booking reference (foreign key) to ssn
     private List<Booking> ssnList;
 
     @Column(name="first_name")
+    //user first name
     private String fName;
 
     @Column(name="last_name")
+    //user last name
     private String lName;
 
     @Column
+    //password for user
     private String password;
 
     public List<Booking> getSsnList() {
         return ssnList;
-    }
-
-    public Booking updateTicket(int ssn){
-        int match = -1;
-        return ssnList.get(match);
     }
 
     public String getfName() {

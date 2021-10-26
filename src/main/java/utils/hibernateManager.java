@@ -4,7 +4,7 @@ import models.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-
+//TODO DOCUMENTATION
 public class hibernateManager {
     private static SessionFactory sf;
     private static Session session;

@@ -7,6 +7,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+/**
+ * a now useless class used to connect to the database using connection.properties
+ * @author James Brown
+ */
 public class ConnectionManager {
     private static Connection c;
     private static FileLogger fl;

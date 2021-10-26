@@ -15,8 +15,19 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * takes in http requests and generates appropriate response for /city
+ * @author James Brown
+ */
 public class cityServlet extends HttpServlet {
 
+    /**
+     *
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -27,6 +38,13 @@ public class cityServlet extends HttpServlet {
         resp.setStatus(200);
     }
 
+    /**
+     *
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
         throws ServletException, IOException {

@@ -5,6 +5,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * prints out HTTP request info as it is received
+ */
 public class CORSFilter implements Filter {
 
     /**

@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+//TODO DOCUMENTATION
 public class FileLogger {
 
     private static FileLogger fileLogger;
