@@ -83,7 +83,7 @@
     cancelButt.addEventListener("click", function(event) {
     event.preventDefault();
     console.log(cancelField.value);
-    marshall1(cancelField.value);
+    marshall2(cancelField.value);
     });
 
     async function marshall1(checkTik){
@@ -94,7 +94,6 @@
 
         let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/booking", {
             method: "POST",
-<!--            headers: {"Content-Type":application/json"},-->
             body: JSON.stringify(checkTicket)
         });
 
@@ -102,18 +101,13 @@
             document.getElementById("checkin-form").reset();
             alert("Check In Failed");
         }
-        else{
-            window.location.href = "Member.html";
-        }
+        else {window.location.href = "Member.html";}
 
     async function marshall2(cancelTik){
-        let ticket = {
-            ticket_num : cancelTik,
-        }
+        let ticket = {ticket_num : cancelTik,}
 
         let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/booking", {
             method: "POST",
-<!--            headers: {"Content-Type":application/json"},-->
             body: JSON.stringify(ticket)
         });
 
@@ -124,8 +118,8 @@
         else{
             window.location.href = "Member.html";
         }
-        }
-        }
+    }
+}
 </script>
 
 </body>

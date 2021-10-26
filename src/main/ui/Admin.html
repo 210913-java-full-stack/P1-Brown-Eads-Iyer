@@ -33,7 +33,7 @@
         <h2>Create A Flight</h2>
         <form id="form_1">
             <h5>Flight Number: </h5>
-            <input type="text" name="flight" id="flight-num-field" class="flight-num-field">
+            <input type="text" name="flight" id="flightNumField" class="flightNumField">
             <h5>Leaving From:</h5>
             <select name="cities" id="depart">
                 <option value=""></option>
@@ -50,6 +50,7 @@
                 <option value="LAX">Los Angeles, CA</option>
                 <option value="IND">Indianapolis, IN</option>
                 <option value="CLT">Charlotte, NC</option>
+                <option value="ANC">Anchorage, AL</option>
             </select>
             <h5>Going To:</h5>
             <select name="cities" id="dest">
@@ -67,6 +68,7 @@
                 <option value="LAX">Los Angeles, CA</option>
                 <option value="IND">Indianapolis, IN</option>
                 <option value="CLT">Charlotte, NC</option>
+                <option value="ANC">Anchorage, AL</option>
             </select><br><br>
             <a id = newFlightButt class="button">Create Flight</a><br>
         </form><br>
@@ -105,7 +107,7 @@
         <h2>Cancel a Flight</h2>
         <form id="del-flight-form">
             <h5>Flight Number: </h5>
-            <input type="text" name="del-flight" id="del-flight-field" class="del-flight-field">
+            <input type="text" name="delFlight" id="delFlightField" class="delFlightField">
             <br><br>
             <a id = delFlightButt class="button">Delete Flight</a>
             <br><br>
@@ -114,6 +116,45 @@
     <div class="column0"></div>
 </div>
 <script>
+    var form = document.getElementById("form_1");
+    newFlightButt.addEventListener("click", function(event) {
+    event.preventDefault();
+    console.log(flightNumField.value);
+    console.log(depart.value);
+    console.log(dest.value);
+    marshall1(flightNumField.value, depart.value, dest.value);
+    });
+
+    var form = document.getElementById("delFlightForm");
+    delFlightButt.addEventListener("click", function(event) {
+    event.preventDefault();
+    console.log(delFlightField.value);
+    marshall2(delFlightField.value);
+    });
+
+    async function marshall1(flightNum, depart, dest){
+        let createFlight = {
+            flight_number: flightNum,
+            flight_num : null,
+            departureCode : depart,
+            destinationCode : dest
+        }
+
+        let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/flight", {
+            method:"POST",
+            body: JSON.stringify(createFlight)
+        });
+    }
+    async function marshall2(flightNum){
+        let deleteFlight = {
+            flight_number: flightNum
+        }
+
+        let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/flight", {
+            method:"DELETE",
+            body: JSON.stringify(deleteFlight)
+        });
+    }
     async function loadTables() {
         let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/flight");
                 let json = await response.json();
@@ -150,7 +191,7 @@
                         cell.innerHTML = parsedElement[key];
                 }
             }
-        };
+        } ;
 </script>
 </body>
 
