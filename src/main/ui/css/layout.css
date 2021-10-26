@@ -52,15 +52,14 @@ tr:nth-child(even) {
   width: 444px;
   padding: 20px;
   padding-left: 30px;
-  background-color: #ffffff;
-  height: 1020px;
-}
+  text-align: left;
 
 .column3 {
   float: left;
   width: 280px;
   padding: 20px;
   padding-bottom: 10%;
+  text-align: left;
   background-color: #e6f2ff;
   height: 1020px;
 }

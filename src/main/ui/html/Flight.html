@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <![endif]-->
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/layout.css" type="text/css" media="all">
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="all">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Flight</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+</head>
+
+<body onload="getFlight()">
+<div class="main">
+    <div class="header"></div>
+    <div id="banner"><br>
+        <h1>Dream Airlines</h1>
+        <h2>Come Fly With Us</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="column0"></div>
+    <div class="column1">
+        <h1>Purchase Tickets</h1><br>
+        <h5>For our accuracy please input the last
+            four of your social security number.</h5>
+        <form id="form_2">
+            <label>SSN</label>
+            <input type=password id="ssn" name="ressn">
+            <br><br>
+            <label>Flight Number:</label>
+            <input id="fnum" name="fnum" type="flightNum">
+            <br><br>
+            <label>Number of Tickets:</label>
+            <select name="passangers" id="pass">
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+                <option value="4">Four</option>
+                <option value="5">Five</option>
+                <option value="6">Six</option>
+                <option value="7">Seven</option>
+                <option value="8">Eight</option>
+                <option value="9">Nine</option>
+                <option value="10">Ten</option>
+            </select><br>
+            <a id="purchaseButt" class="button">Purchase</a><br>
+        </form>
+    </div>
+    <div class="column2">
+        <h2>Flights</h2>
+
+        <table id="flight-table" class='table'>
+            <thead>
+            <tr>
+                <th style="width:44px">Flight_Number</th>
+                <th style="width:200px">From</th>
+                <th style="width:200px">To</th>
+            </tr>
+            </thead>
+            <tbody id="flight-body">
+
+            </tbody>
+        </table>
+    </div>
+    <div class="column3">
+        <h3>Why fly with us?</h3>
+        <p1>Here at Dream Airlines, we strive to make your air travel the
+            most enjoyable trip possible. No matter if your traveling for business, pleasure,
+            or just on your way home, all you have to do... is dream.</p1>
+        <br><br>
+        <h4>
+            In order to purchase tickets, choose from any of the flights we have coming up and then
+            the number of tickets you want to purchase.
+        </h4>
+    </div>
+    <div class="column0"></div>
+</div>
+
+
+<script>
+        var form = document.getElementById("form_2");
+        purchaseButt.addEventListener("click", function (event) {
+            event.preventDefault();
+            console.log(fnum.value);
+            console.log(ssn.value);
+            console.log(pass.value);
+            marshall1(fnum.value, ssn.value, pass.value);
+        });
+
+        async function marshall1(flightNum, ssn, pass){
+            let book = {
+                flight_id : flightNum,
+                ssn : ssn,
+                ticket_num : null
+            }
+
+            for (let i = 0; i < pass; i++) {
+                let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/booking", {
+                method: "POST",
+                body: JSON.stringify(book)
+            })
+        };
+        }
+        async function getFlight() {
+
+            let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/flight");
+            let json = await response.json();
+
+            let table = document.getElementById("flight-body");
+
+            for (let element of json) {
+                let parsedElement = {
+                    Flight_Number: element.flight_number,
+                    From: element.departureCode,
+                    To: element.destinationCode
+                }
+                let tr = table.insertRow(-1);
+                for (let key in parsedElement) {
+                    let cell = tr.insertCell(-1);
+                    cell.innerHTML = parsedElement[key];
+                }
+            }
+        };
+
+</script>
+</body>
+
+</html>
