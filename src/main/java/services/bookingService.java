@@ -47,7 +47,6 @@ public class bookingService {
                 tx.commit();
             }
         }catch(Exception e){
-            //TODO: logger
             session.getTransaction().rollback();
             f.writeLog(e.getMessage() + "\nbooking: bad transaction rolled back", 1);
         }

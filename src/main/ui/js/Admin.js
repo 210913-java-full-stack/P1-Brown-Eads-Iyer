@@ -38,8 +38,7 @@
             destinationCode : dest
         }
 
-        let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/flight", {
-        //let response = await fetch("Proj1eads-env.eba-fbsax2xx.us-east-2.elasticbeanstalk.com/flight", {
+        let response = await fetch("http://localhost:8080/AirportPrototype/flight", {
             method:"POST",
             body: JSON.stringify(createFlight)
         });
@@ -49,16 +48,13 @@
             flight_number: flightNum
         }
 
-        let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/flight", {
-        //let response = await fetch("Proj1eads-env.eba-fbsax2xx.us-east-2.elasticbeanstalk.com/flight", {
-        }
+        let response = await fetch("http://localhost:8080/AirportPrototype/flight", {
             method:"DELETE",
             body: JSON.stringify(deleteFlight)
         });
     }
     async function loadTables() {
-        let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/flight");
-        //let response = await fetch("Proj1eads-env.eba-fbsax2xx.us-east-2.elasticbeanstalk.com/flight";
+        let response = await fetch("http://localhost:8080/AirportPrototype/flight");
                 let json = await response.json();
 
                 let table = document.getElementById("flight-body");
@@ -75,8 +71,7 @@
                         cell.innerHTML = parsedElement[key];
                     }
                 }
-        let response2 = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/booking");
-        //let response2 = await fetch("Proj1eads-env.eba-fbsax2xx.us-east-2.elasticbeanstalk.com/booking");
+        let response2 = await fetch("http://localhost:8080/AirportPrototype/booking");
                 let json2 = await response2.json();
 
                 let table2 = document.getElementById("manifest");
@@ -94,4 +89,4 @@
                         cell.innerHTML = parsedElement[key];
                 }
             }
-        } ;
+        };

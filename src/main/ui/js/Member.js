@@ -35,8 +35,7 @@ async function marshall1(checkTik){
         check_in : true
     }
 
-    let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/booking", {
-    //let response = await fetch("Proj1eads-env.eba-fbsax2xx.us-east-2.elasticbeanstalk.com/booking", {
+    let response = await fetch("http://localhost:8080/AirportPrototype/booking", {
         method: "POST",
         body: JSON.stringify(checkTicket)
     });
@@ -51,15 +50,13 @@ async function marshall1(checkTik){
 async function marshall2(cancelTik){
     let ticket = {ticket_num : cancelTik,}
 
-    let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/booking", {
-    //let response = await fetch("Proj1eads-env.eba-fbsax2xx.us-east-2.elasticbeanstalk.com/booking", {
+    let response = await fetch("http://localhost:8080/AirportPrototype/booking", {
         method: "DELETE",
         body: JSON.stringify(ticket)
     });
 
-    if(response.status = 401){
+    if(response.status != 200){
         document.getElementById("cancel-form").reset();
-        alert("Ticket Cancellation Failed");
     }
     else{
         window.location.href = "Member.html";

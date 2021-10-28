@@ -39,8 +39,7 @@
             password : lPass,
         }
 
-        //let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/user", {
-        let response = await fetch("Proj1eads-env.eba-fbsax2xx.us-east-2.elasticbeanstalk.com/user", {
+        let response = await fetch("http://localhost:8080/AirportPrototype/user", {
             method: "GET",
         });
 
@@ -50,7 +49,6 @@
         }
         else{
             sessionStorage.setItem("SSN", loginssn.value)
-            alert(sessionStorage.getItem("SSN"));
             window.location.href = "Member.html";
         }
     }
@@ -62,8 +60,7 @@
             ssn : cSsn
         }
 
-        let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/user", {
-        //let response = await fetch("Proj1eads-env.eba-fbsax2xx.us-east-2.elasticbeanstalk.com/user", {
+        let response = await fetch("http://localhost:8080/AirportPrototype/user", {
             method: "POST",
             body: JSON.stringify(user)
         });
