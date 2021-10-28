@@ -62,3 +62,25 @@ async function marshall2(cancelTik){
         window.location.href = "Member.html";
     }
 }
+
+async function loadTables() {
+      let response = await fetch("http://localhost:8080/AirportPrototype/booking");
+      let json = await response.json();
+
+      let table = document.getElementById("ticket-table");
+
+      for (let element of json) {
+        let parsedElement = {
+                flight_number : element.flight.flight_number,
+                Ticket: element.ticket_num,
+                From: element.flight.departureCode,
+                To: element.flight.destinationCode
+      }
+
+      let tr = table.insertRow(-1);
+        for (let key in parsedElement) {
+            let cell = tr.insertCell(-1);
+            cell.innerHTML = parsedElement[key];
+        }
+      }
+}

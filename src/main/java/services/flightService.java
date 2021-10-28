@@ -69,9 +69,14 @@ public class flightService {
      */
     public static void deleteFlight(int flightNum){
         Transaction tx = session.beginTransaction();
-        Flight flight = getFlightByFlightNum(flightNum);
-        session.delete(flight);
-        tx.commit();
+        try {
+            Flight flight = getFlightByFlightNum(flightNum);
+            session.delete(flight);
+            tx.commit();
+        }catch (Exception e){
+            tx.rollback();
+            f.writeLog(e.getMessage(), 1);
+        }
     }
 
     /**

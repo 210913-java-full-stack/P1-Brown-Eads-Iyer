@@ -33,7 +33,6 @@
     async function marshall1(flightNum, depart, dest){
         let createFlight = {
             flight_number: flightNum,
-            flight_num : null,
             departureCode : depart,
             destinationCode : dest
         }
