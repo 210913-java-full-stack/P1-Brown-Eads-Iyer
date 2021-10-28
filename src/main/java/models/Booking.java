@@ -1,47 +1,56 @@
 package models;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name="booking")
+/**
+ * Model class for Booking aka Ticket
+ * @author James Brown
+ */
 public class Booking {
 
-    //Constructor for hibernate
+    //no-args constructor for Hibernate
     public Booking() {}
 
-    //id for booking table
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name="ticket_number")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
+    //id for booking table
     private int ticket_num;
 
-    //Is the user on the plane?
     @Column(nullable=false)
+    //Is the user on the plane?
     private boolean check_in;
 
-    //explicit flight identifier
-    @Column(nullable = false)
-    private int flight_id;
+    @ManyToOne(optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "flightNumber")
+    //ManyToOne relationship
+    private Flight flight;
 
-    //explicit user ssn
-    @Column(nullable = false)
-    private int ssn_book;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user")
+    //Unidirectional ManyToOne relationship with
+    private User user;
 
-    public int getFlight_id() {
-        return flight_id;
+    public User getUser() {
+        return user;
     }
 
-    public void setFlight_id(int flight_id) {
-        this.flight_id = flight_id;
+    public void setSsn(User user) {
+        this.user = user;
     }
 
-    public int getSsn() {
-        return ssn_book;
+    public Flight getFlight() {
+        return flight;
     }
 
-    public void setSsn(int ssn) {
-        this.ssn_book = ssn;
+    public void setFlight(Flight flight) {
+        this.flight = flight;
     }
 
     public boolean isCheck_in() {
@@ -59,5 +68,4 @@ public class Booking {
     public void setTicket_num(int ticket_num) {
         this.ticket_num = ticket_num;
     }
-
 }

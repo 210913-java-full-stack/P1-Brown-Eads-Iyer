@@ -10,27 +10,42 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
+/**
+ * class for querying and manipulating user table
+ * @author James Brown
+ */
 public class userService {
     private static Session session;
     private static FileLogger f = FileLogger.getFileLogger();
 
+    /**
+     * gets User session object
+     * @param ssn id for each user
+     * @return User object
+     */
     public static User getUserBySSN(int ssn){
         return session.get(User.class, ssn);
     }
 
+    /**
+     * saves or updates and persists a User to user table
+     * @param userPatch jsonBody from http request
+     */
     public static void saveNewUser(User userPatch){
         try{
-            User u = session.get(User.class, userPatch.getSsn());
+            Transaction t = session.beginTransaction();
+            User u = getUserBySSN(userPatch.getSsn());
             if(u == null){
-                Transaction t = session.beginTransaction();
                 session.save(userPatch);
                 t.commit();
             } else {
+
                 u.setfName(userPatch.getfName());
                 u.setlName(userPatch.getlName());
                 u.setSsn(userPatch.getSsn());
                 u.setPassword(userPatch.getPassword());
-                session.flush();
+                session.update(u);
+                t.commit();
             }
         }
         catch(Exception e){
@@ -41,13 +56,17 @@ public class userService {
         }
     }
 
+    /**
+     * removes entry based on user param
+     * @param user jsonBody from httpServletRequest
+     */
     public static void deleteUser(User user){
         session.delete(user);
     }
 
     /**
-     *
-     * @return a ResultList that contains a list of all Users
+     * gets a list of all Users
+     * @return resultlist of select * from users
      */
     public static List<User> getAllUsers(){
         CriteriaBuilder cBuilder = session.getCriteriaBuilder();
@@ -57,6 +76,10 @@ public class userService {
         return session.createQuery(query).getResultList();
     }
 
+    /**
+     * sets the Session for userService
+     * @param session session created in the hibernateManager
+     */
     public static void setSession(Session session){
         userService.session = session;
     }

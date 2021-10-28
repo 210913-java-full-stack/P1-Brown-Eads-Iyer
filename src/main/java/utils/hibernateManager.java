@@ -4,7 +4,7 @@ import models.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-
+//TODO DOCUMENTATION
 public class hibernateManager {
     private static SessionFactory sf;
     private static Session session;
@@ -30,7 +30,6 @@ public class hibernateManager {
 
     private static void configSession() {
         Configuration config = new Configuration().configure();
-        config.addAnnotatedClass(City.class);
         config.addAnnotatedClass(User.class);
         config.addAnnotatedClass(Booking.class);
         config.addAnnotatedClass(Flight.class);
