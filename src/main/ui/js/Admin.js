@@ -39,6 +39,7 @@
         }
 
         let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/flight", {
+        //let response = await fetch("Proj1eads-env.eba-fbsax2xx.us-east-2.elasticbeanstalk.com/flight", {
             method:"POST",
             body: JSON.stringify(createFlight)
         });
@@ -49,12 +50,15 @@
         }
 
         let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/flight", {
+        //let response = await fetch("Proj1eads-env.eba-fbsax2xx.us-east-2.elasticbeanstalk.com/flight", {
+        }
             method:"DELETE",
             body: JSON.stringify(deleteFlight)
         });
     }
     async function loadTables() {
         let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/flight");
+        //let response = await fetch("Proj1eads-env.eba-fbsax2xx.us-east-2.elasticbeanstalk.com/flight";
                 let json = await response.json();
 
                 let table = document.getElementById("flight-body");
@@ -72,6 +76,7 @@
                     }
                 }
         let response2 = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/booking");
+        //let response2 = await fetch("Proj1eads-env.eba-fbsax2xx.us-east-2.elasticbeanstalk.com/booking");
                 let json2 = await response2.json();
 
                 let table2 = document.getElementById("manifest");
@@ -79,7 +84,7 @@
                 for (let element of json2) {
                     let parsedElement = {
                         Ticket_Number: element.ticket_num,
-                        Flight_Number: element.flight_id,
+                        Flight_Number: element.flight_number,
                         Customer_Number: element.ssn,
                         Checked_In: element.check_in
                     }
