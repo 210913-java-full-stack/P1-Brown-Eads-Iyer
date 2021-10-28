@@ -53,6 +53,7 @@ tr:nth-child(even) {
   padding: 20px;
   padding-left: 30px;
   text-align: left;
+}
 
 .column3 {
   float: left;
@@ -60,7 +61,7 @@ tr:nth-child(even) {
   padding: 20px;
   padding-bottom: 10%;
   text-align: left;
-  background-color: #e6f2ff;
+  background-color: #e1edfa;
   height: 1020px;
 }
 

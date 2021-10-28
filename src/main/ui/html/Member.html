@@ -1,3 +1,10 @@
+
+<!--After the user logs in, they are sent here. Here they are able to check in
+  for a flight, cancel a ticket, or click a link to purchase a ticket. Clicking
+  the "log Out" button sends the user back to the log in screen. The page is
+  divided by 4 columns with something on each column except the sides,
+  which are blank.-->
+
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -7,8 +14,8 @@
 
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="css/layout.css" type="text/css" media="all">
-  <link rel="stylesheet" href="css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="../css/layout.css" type="text/css" media="all">
+  <link rel="stylesheet" href="../css/style.css" type="text/css" media="all">
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Member-Menu</title>
@@ -29,7 +36,7 @@
 <div class="row">
   <div class="column0"></div>
   <div class="column1">
-    <img src="pics/Plane_Body_200.png" alt="Plane Body">
+    <img src="../pics/Plane_Body_200.png" alt="Plane Body">
   </div>
   <div class="column2">
     <br>
@@ -53,74 +60,24 @@
       <h5>Ticket Number: </h5>
       <input type="text" name="ticket" id="cancelField" class="cancel-form-field">
       <br><br>
-      <!--input type="submit" value="Check-In" id="checkin-form-submit"-->
       <a id = "cancelButt" class="button">Cancel</a>
       <br><br>
     </form>
   </div>
 
   <div class="column3">
-    <img src="pics/Take-Off.gif" alt="Take Off">
+    <img src="../pics/Take-Off.gif" alt="Take Off">
     <br><br>
     <br>
-    <h4>To purchase more tickets please click below.</h4>
+    <h4>To purchase more tickets click below.</h4>
     <a href = "Flight.html" id = "toFlightButt" class="button">Buy Tickets</a>
+    <h4>Done? Log out here.</h4>
+    <a id = "logoutButt" class="button">Log Out</a>
   </div>
   <div class="column0"></div>
 </div>
-<script src="" async defer></script>
 
-
-<script>
-    var form = document.getElementById("checkin-form");
-    checkButt.addEventListener("click", function(event) {
-    event.preventDefault();
-    console.log(checkinField.value);
-    marshall1(checkinField.value);
-    });
-
-    var form = document.getElementById("cancel-form");
-    cancelButt.addEventListener("click", function(event) {
-    event.preventDefault();
-    console.log(cancelField.value);
-    marshall2(cancelField.value);
-    });
-
-    async function marshall1(checkTik){
-        let checkTicket = {
-            ticket_num : checkTik,
-            check_in : true
-        }
-
-        let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/booking", {
-            method: "POST",
-            body: JSON.stringify(checkTicket)
-        });
-
-        if(response.status != 202){
-            document.getElementById("checkin-form").reset();
-            alert("Check In Failed");
-        }
-        else {window.location.href = "Member.html";}
-
-    async function marshall2(cancelTik){
-        let ticket = {ticket_num : cancelTik,}
-
-        let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/booking", {
-            method: "POST",
-            body: JSON.stringify(ticket)
-        });
-
-        if(response.status = 401){
-            document.getElementById("cancel-form").reset();
-            alert("Ticket Cancellation Failed");
-        }
-        else{
-            window.location.href = "Member.html";
-        }
-    }
-}
-</script>
+<script src="../js/Member.js"></script>
 
 </body>
 

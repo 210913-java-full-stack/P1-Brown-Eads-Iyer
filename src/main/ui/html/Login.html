@@ -1,3 +1,9 @@
+
+<!--This is the start of the program. It will take the users info and check it against
+ the back-end, or it will take a new user and add them to the back-end.The page is
+ divided by 4 columns with something on each column except the sides, which are blank.-->
+
+
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -8,8 +14,8 @@
 
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="css/layout.css" type="text/css" media="all">
-    <link rel="stylesheet" href="css/style.css" type="text/css" media="all">
+    <link rel="stylesheet" href="../css/layout.css" type="text/css" media="all">
+    <link rel="stylesheet" href="../css/style.css" type="text/css" media="all">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Login</title>
@@ -68,74 +74,11 @@
     </div>
 
     <div class="column3">
-        <img src="pics/Plane_Body_201.png" alt="Plane Body">
+        <img src="../pics/Plane_Body_201.png" alt="Plane Body">
     </div>
     <div class="column0"></div>
 </div>
-<script>
-    var form = document.getElementById("login-form");
-    insub.addEventListener("click", function(event) {
-    event.preventDefault();
-    if((loginssn.value == 0000)&&(loginpass.value == 0000)){
-    window.location.href = "Admin.html";
-    }
-    else{
-    console.log(loginssn.value);
-    console.log(loginpass.value);
-    marshall1(loginssn.value, loginpass.value);
-    }});
-
-    var form = document.getElementById("create-form");
-    createSub.addEventListener("click", function(event) {
-    event.preventDefault();
-    console.log(first.value);
-    console.log(last.value);
-    console.log(pass.value);
-    console.log(ssn.value);
-    marshall2(first.value, last.value, pass.value, ssn.value);
-    });
-
-    async function marshall1(lSsn, lPass){
-        let user = {
-            ssn : lSsn,
-            password : lPass,
-        }
-
-        let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/user", {
-            method: "GET",
-        });
-
-        if(response.status != 200){
-            document.getElementById("loginForm").reset();
-            alert("Login Failed");
-        }
-        else{
-            window.location.href = "Member.html";
-        }
-    }
-    async function marshall2(cFirst, cLast, cPass, cSsn){
-        let user = {
-            fName : cFirst,
-            lName : cLast,
-            password : cPass,
-            ssn : cSsn
-        }
-
-        let response = await fetch("http://localhost:8080/P1-Brown-Eads-Iyer/user", {
-            method: "POST",
-            body: JSON.stringify(user)
-        });
-
-        if(response.status != 202){
-            document.getElementById("loginForm").reset();
-            alert("Login Failed");
-        }
-        else{
-            window.location.href = "Member.html";
-        }
-    }
-
-</script>
+<script src="../js/Login.js"></script>
 </body>
 
 </html>
