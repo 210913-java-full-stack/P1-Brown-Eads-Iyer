@@ -79,8 +79,8 @@
                 for (let element of json2) {
                     let parsedElement = {
                         Ticket_Number: element.ticket_num,
-                        Flight_Number: element.flight_number,
-                        Customer_Number: element.ssn,
+                        Flight_Number: element.flight.flight_number,
+                        Customer_ID: element.user.ssn,
                         Checked_In: element.check_in
                     }
                     let tr = table2.insertRow(-1);
