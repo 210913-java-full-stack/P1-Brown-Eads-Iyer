@@ -42,7 +42,8 @@ public class bookingService {
                 session.save(bookPatch);
                 tx.commit();
             }else {
-                session.update(bookPatch);
+                book.setCheck_in(true);
+                session.update(book);
                 tx.commit();
             }
         }catch(Exception e){
@@ -54,10 +55,13 @@ public class bookingService {
 
     /**
      * deletes booking entry from table
-     * @param booking jsonBody from servlet request
+     * @param ticket_num
      */
-    public static void deleteBooking(Booking booking){
-        session.delete(booking);
+    public static void deleteBooking(int ticket_num){
+        Transaction tx = session.beginTransaction();
+        Booking book = getBookingByTicketNum(ticket_num);
+        session.delete(book);
+        tx.commit();
     }
 
     /**

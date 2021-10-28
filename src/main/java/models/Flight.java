@@ -36,6 +36,7 @@ public class Flight {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "flight")
     @JsonIgnore
+    //Bidirectional relationship with Booking to know who is on flight
     private List<Booking> passengers = new ArrayList<>();
 
     public List<Booking> getPassengers() {

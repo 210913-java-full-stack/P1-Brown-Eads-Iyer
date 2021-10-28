@@ -29,11 +29,12 @@ public class Booking {
     @ManyToOne(optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "flightNumber")
-    //YOU NEED ON DELETE (ELABORATE)
+    //ManyToOne relationship
     private Flight flight;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "user")
+    //Unidirectional ManyToOne relationship with
     private User user;
 
     public User getUser() {
