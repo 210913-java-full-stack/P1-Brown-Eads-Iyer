@@ -1,6 +1,13 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,19 +26,25 @@ public class Flight {
     //id for each flight
     private int flight_number;
 
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="flight_number", nullable=false, referencedColumnName = "flight_number")
-    //Booking reference to flight
-    private List<Booking> flight_num;
-
-    @Column(nullable=false)
+    @Column(nullable=false, length = 3)
     //departure code for flight
     private String departureCode;
 
-    @Column(nullable=false)
+    @Column(nullable=false, length = 3)
     //destination code for flight
     private String destinationCode;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "flight")
+    @JsonIgnore
+    private List<Booking> passengers = new ArrayList<>();
+
+    public List<Booking> getPassengers() {
+        return passengers;
+    }
+
+    public void setPassengers(List<Booking> passengers) {
+        this.passengers = passengers;
+    }
 
     public String getDepartureCode() {
         return departureCode;
@@ -53,11 +66,17 @@ public class Flight {
 
     public void setFlight_number(int flight_number) {this.flight_number = flight_number;}
 
-    public List<Booking> getFlight_num() {
-        return flight_num;
-    }
-
-    public void setFlight_num(List<Booking> flight_num) {
-        this.flight_num = flight_num;
-    }
+//    public List<Booking> getFlight_num() {
+//        return flight_num;
+//    }
+//
+//    public void setFlight_num(List<Booking> flight_num) {
+//        this.flight_num = flight_num;
+//    }
+//
+//    public void addTicket(Booking book){
+//        flight_num.add(book);
+//    }
+//
+//    public void removeTicket(Booking book){flight_num.remove(book);}
 }

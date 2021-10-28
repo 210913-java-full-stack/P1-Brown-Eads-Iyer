@@ -1,6 +1,9 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,11 +22,6 @@ public class User {
     //id for users table/user object
     private int ssn;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="user_ssn", nullable=false, referencedColumnName="ssn")
-    //Booking reference (foreign key) to ssn
-    private List<Booking> ssnList;
-
     @Column(name="first_name")
     //user first name
     private String fName;
@@ -32,13 +30,20 @@ public class User {
     //user last name
     private String lName;
 
-    @Column
+    @Column(nullable = false)
     //password for user
     private String password;
 
-    public List<Booking> getSsnList() {
-        return ssnList;
-    }
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+//    private List<Booking> ticketList = new ArrayList<>();
+//
+//    public List<Booking> getTicketList() {
+//        return ticketList;
+//    }
+//
+//    public void setTicketList(List<Booking> ticketList) {
+//        this.ticketList = ticketList;
+//    }
 
     public String getfName() {
         return fName;
@@ -71,4 +76,20 @@ public class User {
     public void setSsn(int ssn) {
         this.ssn = ssn;
     }
+
+//    public List<Booking> getSsnList() {
+//        return ssnList;
+//    }
+//
+//    public void setSsnList(List<Booking> ssnList) {
+//        this.ssnList = ssnList;
+//    }
+//    public void addToTickets(Booking book){
+//        ssnList.add(book);
+//    }
+//
+//    public void removeTicket(Booking book){
+//        ssnList.remove(book);
+//    }
 }
+

@@ -1,9 +1,9 @@
 package services;
 
-import models.City;
 import models.Flight;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import utils.FileLogger;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class flightService {
     private static Session session;
-    private static FileLogger f;
+    private static FileLogger f = FileLogger.getFileLogger();
 
     /**
      * gets Flight session object
@@ -43,35 +43,21 @@ public class flightService {
         //call session.flush()
         //Note: that anything we pull out of the database into a java object is now in persistent state.
         try {
+            Transaction tx = session.beginTransaction();
             Flight flight = session.get(Flight.class, flightPatch.getFlight_number());
             if (flight == null){
-                //Departure
-                CriteriaBuilder cb = session.getCriteriaBuilder();
-                CriteriaQuery<City> query = cb.createQuery(City.class);
-                Root<City> root = query.from(City.class);
-                query.where(cb.equal(root.get("code"), flightPatch.getDepartureCode()));
-                List<City> list = session.createQuery(query).getResultList();
-                City c = list.get(0);
-                c.getDeparture().add(flightPatch);
 
-                //Destination
-                query.where(cb.equal(root.get("code"), flightPatch.getDestinationCode()));
-                list = session.createQuery(query).getResultList();
-                c = list.get(0);
-                c.getDestination().add(flightPatch);
-
-                session.beginTransaction();
                 session.save(flightPatch);
-                session.getTransaction().commit();
+                tx.commit();
             }
             else{
-                flight.setFlight_num(flightPatch.getFlight_num());
-                flight.setDepartureCode(flightPatch.getDepartureCode());
-                flight.setDestinationCode(flightPatch.getDestinationCode());
-                session.flush();
+
+                session.update(flightPatch);
+                tx.commit();
             }
         } catch (Exception e) {
             session.getTransaction().rollback();
+            e.printStackTrace();
             f.writeLog(e.getMessage() +
                     "\n flights: bad transaction rolled back", 1);
         }
@@ -82,10 +68,10 @@ public class flightService {
      * @param flightNum identifier for flight
      */
     public static void deleteFlight(int flightNum){
+        Transaction tx = session.beginTransaction();
         Flight flight = getFlightByFlightNum(flightNum);
-        session.beginTransaction();
         session.delete(flight);
-        session.getTransaction().commit();
+        tx.commit();
     }
 
     /**

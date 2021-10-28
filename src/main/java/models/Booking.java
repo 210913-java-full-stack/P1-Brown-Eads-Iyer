@@ -1,5 +1,8 @@
 package models;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,12 +13,12 @@ import javax.persistence.*;
  */
 public class Booking {
 
-    //Constructor for Hibernate
+    //no-args constructor for Hibernate
     public Booking() {}
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name="ticket_number")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     //id for booking table
     private int ticket_num;
 
@@ -23,28 +26,30 @@ public class Booking {
     //Is the user on the plane?
     private boolean check_in;
 
-    @Column(nullable = false)
-    //explicit flight identifier
-    private int flight_id;
+    @ManyToOne(optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "flightNumber")
+    //YOU NEED ON DELETE (ELABORATE)
+    private Flight flight;
 
-    @Column(nullable = false)
-    //explicit user ssn
-    private int ssn_book;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user")
+    private User user;
 
-    public int getFlight_id() {
-        return flight_id;
+    public User getUser() {
+        return user;
     }
 
-    public void setFlight_id(int flight_id) {
-        this.flight_id = flight_id;
+    public void setSsn(User user) {
+        this.user = user;
     }
 
-    public int getSsn() {
-        return ssn_book;
+    public Flight getFlight() {
+        return flight;
     }
 
-    public void setSsn(int ssn) {
-        this.ssn_book = ssn;
+    public void setFlight(Flight flight) {
+        this.flight = flight;
     }
 
     public boolean isCheck_in() {
@@ -59,4 +64,7 @@ public class Booking {
         return ticket_num;
     }
 
+    public void setTicket_num(int ticket_num) {
+        this.ticket_num = ticket_num;
+    }
 }

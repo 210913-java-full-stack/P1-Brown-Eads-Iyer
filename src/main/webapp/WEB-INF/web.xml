@@ -24,7 +24,7 @@
         <filter-name>CorsFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    <!--     CORS FILTER -->
+    <!-- CORS FILTER -->
 
     <servlet>
         <servlet-name>pingServlet</servlet-name>
@@ -33,15 +33,6 @@
     <servlet-mapping>
         <servlet-name>pingServlet</servlet-name>
         <url-pattern>/ping</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>cityServlet</servlet-name>
-        <servlet-class>servlets.cityServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>cityServlet</servlet-name>
-        <url-pattern>/city</url-pattern>
     </servlet-mapping>
 
     <servlet>

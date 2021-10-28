@@ -33,17 +33,19 @@ public class userService {
      */
     public static void saveNewUser(User userPatch){
         try{
-            User u = session.get(User.class, userPatch.getSsn());
+            Transaction t = session.beginTransaction();
+            User u = getUserBySSN(userPatch.getSsn());
             if(u == null){
-                Transaction t = session.beginTransaction();
                 session.save(userPatch);
                 t.commit();
             } else {
+
                 u.setfName(userPatch.getfName());
                 u.setlName(userPatch.getlName());
                 u.setSsn(userPatch.getSsn());
                 u.setPassword(userPatch.getPassword());
-                session.flush();
+                session.update(u);
+                t.commit();
             }
         }
         catch(Exception e){

@@ -30,7 +30,6 @@ public class hibernateManager {
 
     private static void configSession() {
         Configuration config = new Configuration().configure();
-        config.addAnnotatedClass(City.class);
         config.addAnnotatedClass(User.class);
         config.addAnnotatedClass(Booking.class);
         config.addAnnotatedClass(Flight.class);
