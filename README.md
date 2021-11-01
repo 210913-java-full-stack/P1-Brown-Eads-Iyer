@@ -1,4 +1,4 @@
-# P1-Brown-Eads-Iyer
+# Project 1 - Airport Kiosk
 
 ## Description
 This is a simple Airport Kiosk application that allows users (passengers) to interact with flights created by the administrator.
